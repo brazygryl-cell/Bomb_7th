@@ -1,32 +1,15 @@
-const $ = s => document.querySelector(s);
-const $ = s => [...document.querySelectorAll(s)];
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => Array.from(document.querySelectorAll(s));
 
 let soundsEnabled = true;
-let audioCtx;
-function ensureAudio(){
-  if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-  if(audioCtx.state==="suspended") audioCtx.resume();
-}
-function tone(freq=440,dur=.12,type="sine",vol=.05,delay=0){
-  if(!soundsEnabled) return;
-  ensureAudio();
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type=type; o.frequency.value=freq; g.gain.value=vol;
-  o.connect(g); g.connect(audioCtx.destination);
-  const t=audioCtx.currentTime+delay;
-  g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.001,t+dur);
-  o.start(t); o.stop(t+dur);
-}
-function uiSound(name){
-  if(!soundsEnabled) return;
-  if(name==="click"){tone(520,.06,"square",.025);tone(700,.05,"square",.018,.06)}
-  if(name==="next"){tone(420,.07,"sine",.03);tone(620,.08,"sine",.03,.07)}
-  if(name==="wrong"){tone(180,.16,"sawtooth",.04);tone(120,.2,"sawtooth",.04,.12)}
-  if(name==="zap"){tone(900,.04,"square",.04);tone(300,.14,"sawtooth",.035,.03)}
-  if(name==="success"){tone(523,.1,"sine",.04);tone(659,.1,"sine",.04,.1);tone(784,.18,"sine",.045,.2)}
-  if(name==="alarm"){tone(220,.16,"square",.035);tone(160,.16,"square",.035,.18)}
-  if(name==="pop"){tone(760,.055,"triangle",.025);tone(980,.07,"triangle",.02,.05)}
-}
+let audioCtx = null;
+let currentLesson = 0;
+let currentSlide = 0;
+let lessonDefault = 180;
+let lessonRemaining = 180;
+let lessonInterval = null;
+let garyPlayed = false;
+const GARY_FALLBACK = 10.475;
 
 const richerNotes = {
 "What Is a Circuit?":[
@@ -103,25 +86,24 @@ const richerNotes = {
 ]
 };
 
-function enrichContent(day,slide){
-  let extra="";
-  const t=slide.type;
-  if(t==="Notes" && richerNotes[day.topic]){
-    extra="<div class='copy-block'><span class='copy-label'>✍ COPY THIS</span><ul>"+
-      richerNotes[day.topic].map(x=>"<li>"+x+"</li>").join("")+
+
+function enrichContent(day, slide){
+  let extra = "";
+  if(slide.type === "Notes" && richerNotes[day.topic]){
+    extra += "<div class='copy-block'><span class='copy-label'>✍ COPY THIS</span><ul>" +
+      richerNotes[day.topic].map(x => "<li>"+x+"</li>").join("") +
       "</ul></div>";
   }
-  if(t==="Bell Ringer") extra+="<div class='fun-tip'>⏱ MISSION BRIEFING: Write first. Talk second. Be ready to defend your answer.</div>";
-  if(t==="Vocabulary") extra+="<div class='fun-tip'>🎴 VOCAB CHECK: Pick one word you could explain to a classmate without reading the definition.</div>";
-  if(t==="Activity") extra+="<div class='fun-tip'>🧰 BUILD RULE: Test one change at a time. Random wire-moving does not count as troubleshooting.</div>";
-  if(t==="Exit Ticket") extra+="<div class='fun-tip'>✅ FINAL CHECK: Your answer should use at least one vocabulary word from today.</div>";
-  return slide.html+extra;
+  if(slide.type === "Bell Ringer") extra += "<div class='fun-tip'>⏱ MISSION BRIEFING: Write first. Talk second. Be ready to defend your answer.</div>";
+  if(slide.type === "Vocabulary") extra += "<div class='fun-tip'>🎴 VOCAB CHECK: Pick one word you could explain to a classmate without reading the definition.</div>";
+  if(slide.type === "Activity") extra += "<div class='fun-tip'>🧰 BUILD RULE: Test one change at a time. Random wire-moving does not count as troubleshooting.</div>";
+  if(slide.type === "Exit Ticket") extra += "<div class='fun-tip'>✅ FINAL CHECK: Use at least one vocabulary word from today.</div>";
+  return slide.html + extra;
 }
-const stickerByType={"Bell Ringer":"⏱️","Objective":"🎯","Vocabulary":"🧠","Notes":"✍️","Activity":"🛠️","Exit Ticket":"✅"};
-const themeByType={"Bell Ringer":"theme-bell","Objective":"theme-objective","Vocabulary":"theme-vocab","Notes":"theme-notes","Activity":"theme-activity","Exit Ticket":"theme-exit"};
 
-
-const circuitStageNames = {
+const stickerByType = {"Bell Ringer":"⏱️","Objective":"🎯","Vocabulary":"🧠","Notes":"✍️","Activity":"🛠️","Exit Ticket":"✅"};
+const themeByType = {"Bell Ringer":"theme-bell","Objective":"theme-objective","Vocabulary":"theme-vocab","Notes":"theme-notes","Activity":"theme-activity","Exit Ticket":"theme-exit"};
+const stageByType = {
   "Bell Ringer":"POWER SOURCE ONLINE",
   "Objective":"SWITCH CLOSED • MISSION SET",
   "Vocabulary":"CURRENT FLOWING • COMPONENT ID",
@@ -129,43 +111,6 @@ const circuitStageNames = {
   "Activity":"LOAD ENGAGED • BUILD MODE",
   "Exit Ticket":"FINAL DIAGNOSTIC • SYSTEM CHECK"
 };
-function updateCircuitProgress(){
-  const progress = $("#circuitProgress");
-  if(!progress) return;
-  const nodes=$("#circuitProgress .node"), traces=$("#circuitProgress .trace");
-  nodes.forEach((n,i)=>{
-    n.classList.toggle("complete",i<currentSlide);
-    n.classList.toggle("active",i===currentSlide);
-  });
-  traces.forEach((t,i)=>{
-    t.classList.toggle("complete",i<currentSlide);
-    t.classList.toggle("active",i===currentSlide-1 || i===currentSlide);
-  });
-}
-function sparkBurst(count=8){
-  const stage=$("#slideStage");
-  if(!stage) return;
-  for(let i=0;i<count;i++){
-    const s=document.createElement("span");
-    s.className="spark"; s.textContent=Math.random()>.5?"✦":"⚡";
-    s.style.left=(20+Math.random()*60)+"%";
-    s.style.top=(20+Math.random()*55)+"%";
-    s.style.setProperty("--dx",(Math.random()*180-90)+"px");
-    s.style.setProperty("--dy",(Math.random()*120-60)+"px");
-    stage.appendChild(s);
-    setTimeout(()=>s.remove(),800);
-  }
-}
-function pulseCircuit(){
-  const stage=$("#slideStage");
-  if(!stage) return;
-  uiSound("zap");
-  stage.classList.remove("pulse-circuit"); void stage.offsetWidth; stage.classList.add("pulse-circuit");
-  sparkBurst(10);
-  setTimeout(()=>stage.classList.remove("pulse-circuit"),900);
-}
-const pulseBtn=$("#circuitPulseBtn");
-if(pulseBtn) pulseBtn.onclick=pulseCircuit;
 
 const lessons = [
 {date:"MON • NOV 9",topic:"What Is a Circuit?",slides:[
@@ -266,103 +211,232 @@ const lessons = [
 ]}
 ];
 
-let currentLesson = 0, currentSlide = 0;
-let lessonDefault = 180, lessonRemaining = 180, lessonInterval = null;
-let projectDefault = 60, projectRemaining = 60, projectInterval = null;
-let lessonGaryPlayed = false, projectGaryPlayed = false;
-const GARY_FALLBACK = 10.475;
 
-const gary = $("#garyAudio"), factory = $("#factoryAudio");
-$("#soundToggle").onclick=()=>{soundsEnabled=!soundsEnabled;$("#soundToggle").textContent=soundsEnabled?"🔊 SOUNDS ON":"🔇 SOUNDS OFF";$("#soundToggle").setAttribute("aria-pressed",String(soundsEnabled));if(soundsEnabled)uiSound("pop")};
+function ensureAudio(){
+  if(!soundsEnabled) return;
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === "suspended") audioCtx.resume();
+  }catch(e){}
+}
+function tone(freq=440,dur=.08,type="sine",vol=.025,delay=0){
+  if(!soundsEnabled) return;
+  try{
+    ensureAudio();
+    if(!audioCtx) return;
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type=type; o.frequency.value=freq; g.gain.value=vol;
+    o.connect(g); g.connect(audioCtx.destination);
+    const t=audioCtx.currentTime+delay;
+    g.gain.setValueAtTime(vol,t);
+    g.gain.exponentialRampToValueAtTime(.001,t+dur);
+    o.start(t); o.stop(t+dur);
+  }catch(e){}
+}
+function uiSound(kind){
+  if(kind==="next"){ tone(420,.06); tone(650,.07,"sine",.02,.07); }
+  else if(kind==="zap"){ tone(900,.04,"square",.03); tone(300,.12,"sawtooth",.025,.04); }
+  else if(kind==="success"){ tone(523,.08); tone(659,.08,"sine",.025,.09); tone(784,.12,"sine",.025,.18); }
+  else tone(700,.05,"triangle",.02);
+}
 
 function show(id){
-  $$(".screen").forEach(x=>x.classList.remove("active"));
-  $(id).classList.add("active");
+  $$(".screen").forEach(el => el.classList.remove("active"));
+  const target=$(id);
+  if(target) target.classList.add("active");
 }
-const openLessonsBtn=$("#openLessons"); if(openLessonsBtn) openLessonsBtn.onclick=()=>{uiSound("zap");show("#lessonMenu")};
-const openProjectBtn=$("#openProject"); if(openProjectBtn) openProjectBtn.onclick=()=>{uiSound("alarm");show("#projectScreen")};
-$$(".back-home").forEach(b=>b.onclick=()=>show("#homeScreen"));
-$("#backToDays").onclick=()=>{stopLessonTimer();show("#lessonMenu")};
 
-const dayGrid=$("#dayGrid");
-lessons.forEach((d,i)=>{
-  const b=document.createElement("button");
-  b.className="day-card";
-  b.innerHTML=`<span class="date">${d.date}</span><strong>${d.topic}</strong><small>Bell Ringer • Notes • Vocab • Activity • Exit Ticket</small>`;
-  b.onclick=()=>{uiSound("click");openLesson(i)};
-  dayGrid.appendChild(b);
-});
-
-function openLesson(i){currentLesson=i;currentSlide=0;show("#lessonDeck");renderSlide();setTimeout(()=>pulseCircuit(),250)}
-function renderSlide(){uiSound("pop");
-  const day=lessons[currentLesson], s=day.slides[currentSlide];
-  $("#deckDate").textContent=day.date; $("#deckTopic").textContent=day.topic;
-  $("#slideCount").textContent=`${currentSlide+1} / ${day.slides.length}`;
-  $("#slideBadge").textContent=s.type.toUpperCase(); $("#slideTitle").textContent=s.title; $("#slideBody").innerHTML=enrichContent(day,s); $("#slideSticker").textContent=stickerByType[s.type]||"⚡"; $("#slideStage").className="slide-stage "+(themeByType[s.type]||"")+" stage-enter"; $("#stageCallout").textContent=circuitStageNames[s.type]||"SYSTEM ONLINE"; updateCircuitProgress(); setTimeout(()=>$("#slideStage").classList.remove("stage-enter"),500);
-  $("#slideTimerArea").classList.toggle("hidden",!s.timer);
-  if(s.timer){resetLessonTimer(false)}
+function buildDayMenu(){
+  const grid=$("#dayGrid");
+  if(!grid) return;
+  grid.innerHTML="";
+  lessons.forEach((day,i)=>{
+    const btn=document.createElement("button");
+    btn.className="day-card";
+    btn.innerHTML="<span class='date'>"+day.date+"</span><strong>"+day.topic+"</strong><small>Bell Ringer • Notes • Vocab • Activity • Exit Ticket</small>";
+    btn.addEventListener("click",()=>openLesson(i));
+    grid.appendChild(btn);
+  });
 }
-$("#nextSlide").onclick=()=>{const max=lessons[currentLesson].slides.length-1;if(currentSlide<max){uiSound("next");sparkBurst(5);currentSlide++;renderSlide();setTimeout(()=>pulseCircuit(),120)}};
-$("#prevSlide").onclick=()=>{if(currentSlide>0){uiSound("click");currentSlide--;renderSlide()}};
 
-function audioLen(){return Number.isFinite(gary.duration)&&gary.duration>0?gary.duration:GARY_FALLBACK}
-function fmt(v){const sec=Math.max(0,Math.ceil(v));return `${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`}
-function setStatus(txt,color){$("#systemStatus").textContent=txt;$("#statusDot").style.background=color}
-function flash(kind="red"){const f=$("#flashLayer");f.className="";void f.offsetWidth;f.classList.add(kind==="green"?"green":"flash");setTimeout(()=>f.className="",1100)}
-function shake(big=false){document.body.classList.add(big?"mega-shake":"shake");setTimeout(()=>document.body.classList.remove(big?"mega-shake":"shake"),big?1800:800)}
-function play(a){a.currentTime=0;a.play().catch(()=>{})}
-function detonate(){uiSound("alarm");setStatus("ALARM TRIGGERED","#ff4d5e");flash();shake(true)}
+function updateCircuitProgress(){
+  const nodes=$$("#circuitProgress .node");
+  const traces=$$("#circuitProgress .trace");
+  nodes.forEach((n,i)=>{
+    n.classList.toggle("complete", i < currentSlide);
+    n.classList.toggle("active", i === currentSlide);
+  });
+  traces.forEach((t,i)=>{
+    t.classList.toggle("complete", i < currentSlide);
+    t.classList.toggle("active", i === currentSlide || i === currentSlide-1);
+  });
+}
 
-function runCountdown(kind){
-  const isLesson=kind==="lesson";
-  const getRem=()=>isLesson?lessonRemaining:projectRemaining;
-  const setRem=v=>{if(isLesson)lessonRemaining=v;else projectRemaining=v};
-  const getInt=()=>isLesson?lessonInterval:projectInterval;
-  const setInt=v=>{if(isLesson)lessonInterval=v;else projectInterval=v};
-  clearInterval(getInt());
-  if(isLesson) lessonGaryPlayed=false; else projectGaryPlayed=false;
-  const start=performance.now(), starting=getRem();
-  setStatus("SYSTEM ARMED","#ff4d5e");
-  setInt(setInterval(()=>{
-    const elapsed=(performance.now()-start)/1000;
-    const rem=Math.max(0,starting-elapsed); setRem(rem);
-    if(isLesson) $("#lessonTimerDisplay").textContent=fmt(rem); else $("#projectTimerDisplay").textContent=fmt(rem);
-    const played=isLesson?lessonGaryPlayed:projectGaryPlayed;
-    if(!played && rem<=audioLen() && rem>0){
-      play(gary);
-      if(isLesson) lessonGaryPlayed=true; else projectGaryPlayed=true;
+function sparkBurst(count=6){
+  const stage=$("#slideStage");
+  if(!stage) return;
+  for(let i=0;i<count;i++){
+    const s=document.createElement("span");
+    s.className="spark";
+    s.textContent=Math.random()>.5 ? "✦" : "⚡";
+    s.style.left=(20+Math.random()*60)+"%";
+    s.style.top=(20+Math.random()*55)+"%";
+    s.style.setProperty("--dx",(Math.random()*160-80)+"px");
+    s.style.setProperty("--dy",(Math.random()*100-50)+"px");
+    stage.appendChild(s);
+    setTimeout(()=>s.remove(),800);
+  }
+}
+
+function pulseCircuit(){
+  const stage=$("#slideStage");
+  if(!stage) return;
+  uiSound("zap");
+  stage.classList.remove("pulse-circuit");
+  void stage.offsetWidth;
+  stage.classList.add("pulse-circuit");
+  sparkBurst(8);
+  setTimeout(()=>stage.classList.remove("pulse-circuit"),900);
+}
+
+function openLesson(index){
+  stopLessonTimer();
+  currentLesson=index;
+  currentSlide=0;
+  show("#lessonDeck");
+  renderSlide();
+  setTimeout(pulseCircuit,150);
+}
+
+function renderSlide(){
+  const day=lessons[currentLesson];
+  const slide=day && day.slides ? day.slides[currentSlide] : null;
+  if(!day || !slide) return;
+
+  const set=(id,value)=>{ const el=$(id); if(el) el.textContent=value; };
+  set("#deckDate",day.date);
+  set("#deckTopic",day.topic);
+  set("#slideCount",(currentSlide+1)+" / "+day.slides.length);
+  set("#slideBadge",slide.type.toUpperCase());
+  set("#slideTitle",slide.title);
+  set("#slideSticker",stickerByType[slide.type] || "⚡");
+  set("#stageCallout",stageByType[slide.type] || "SYSTEM ONLINE");
+
+  const body=$("#slideBody");
+  if(body) body.innerHTML=enrichContent(day,slide);
+
+  const stage=$("#slideStage");
+  if(stage){
+    stage.className="slide-stage "+(themeByType[slide.type] || "");
+  }
+  const timerArea=$("#slideTimerArea");
+  if(timerArea) timerArea.classList.toggle("hidden",!slide.timer);
+
+  updateCircuitProgress();
+  if(slide.timer) resetLessonTimer();
+}
+
+function fmt(v){
+  const sec=Math.max(0,Math.ceil(v));
+  return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0");
+}
+function audioLen(){
+  const g=$("#garyAudio");
+  return g && Number.isFinite(g.duration) && g.duration>0 ? g.duration : GARY_FALLBACK;
+}
+function stopLessonTimer(){
+  if(lessonInterval) clearInterval(lessonInterval);
+  lessonInterval=null;
+}
+function resetLessonTimer(){
+  stopLessonTimer();
+  lessonRemaining=lessonDefault;
+  garyPlayed=false;
+  const g=$("#garyAudio");
+  if(g){ try{ g.pause(); g.currentTime=0; }catch(e){} }
+  const d=$("#lessonTimerDisplay");
+  if(d) d.textContent=fmt(lessonRemaining);
+}
+function startLessonTimer(){
+  stopLessonTimer();
+  const g=$("#garyAudio");
+  const startedAt=performance.now();
+  const starting=lessonRemaining;
+  garyPlayed=false;
+  pulseCircuit();
+  lessonInterval=setInterval(()=>{
+    const elapsed=(performance.now()-startedAt)/1000;
+    lessonRemaining=Math.max(0,starting-elapsed);
+    const d=$("#lessonTimerDisplay");
+    if(d) d.textContent=fmt(lessonRemaining);
+    if(!garyPlayed && lessonRemaining<=audioLen() && lessonRemaining>0 && g){
+      garyPlayed=true;
+      try{ g.currentTime=0; g.play().catch(()=>{}); }catch(e){}
     }
-    if(rem<=0){
-      clearInterval(getInt()); setInt(null);
-      if(isLesson) $("#lessonTimerDisplay").textContent="00:00"; else $("#projectTimerDisplay").textContent="00:00";
-      detonate();
+    if(lessonRemaining<=0){
+      stopLessonTimer();
+      if(d) d.textContent="00:00";
+      document.body.classList.add("mega-shake");
+      const flash=$("#flashLayer");
+      if(flash){ flash.className="flash"; setTimeout(()=>flash.className="",1000); }
+      setTimeout(()=>document.body.classList.remove("mega-shake"),1500);
     }
-  },100));
+  },100);
 }
-function stopLessonTimer(){if(lessonInterval)clearInterval(lessonInterval);lessonInterval=null}
-function resetLessonTimer(update=true){stopLessonTimer();gary.pause();gary.currentTime=0;lessonRemaining=lessonDefault;lessonGaryPlayed=false;if(update)$("#lessonTimerDisplay").textContent=fmt(lessonRemaining);else $("#lessonTimerDisplay").textContent=fmt(lessonRemaining);setStatus("SYSTEM SAFE","#42cc83")}
-$$("[data-time]").forEach(b=>b.onclick=()=>{lessonDefault=+b.dataset.time;resetLessonTimer()});
-$("#lessonTimerStart").onclick=()=>{uiSound("alarm");pulseCircuit();runCountdown("lesson")};
-$("#lessonTimerReset").onclick=()=>resetLessonTimer();
 
-function resetProject(){if(projectInterval)clearInterval(projectInterval);projectInterval=null;gary.pause();gary.currentTime=0;projectRemaining=projectDefault;projectGaryPlayed=false;$("#projectTimerDisplay").textContent=fmt(projectRemaining);setStatus("SYSTEM SAFE","#42cc83")}
-$$("[data-project-time]").forEach(b=>b.onclick=()=>{projectDefault=+b.dataset.projectTime;resetProject()});
-$("#projectArm").onclick=()=>runCountdown("project");
-$("#projectWrong").onclick=()=>{uiSound("wrong");projectRemaining=Math.max(0,projectRemaining-5);$("#projectTimerDisplay").textContent=fmt(projectRemaining);flash();shake()};
-$("#projectDefuse").onclick=()=>{uiSound("success");if(projectInterval)clearInterval(projectInterval);projectInterval=null;gary.pause();gary.currentTime=0;setStatus("DEVICE DEFUSED","#42cc83");flash("green");shake()};
-$("#projectReset").onclick=resetProject;
-$("#playFactory").onclick=()=>{uiSound("zap");play(factory);shake()};
-$("#manualDetonate").onclick=detonate;
+function init(){
+  buildDayMenu();
 
-document.addEventListener("keydown",e=>{
-  const k=e.key.toLowerCase();
-  if(!$("#projectScreen").classList.contains("active"))return;
-  if(k==="a")runCountdown("project");
-  if(k==="w")$("#projectWrong").click();
-  if(k==="d")$("#projectDefuse").click();
-  if(k==="r")resetProject();
-  if(k==="2")$("#playFactory").click();
-});
+  const openLessons=$("#openLessons");
+  if(openLessons) openLessons.addEventListener("click",()=>{ uiSound("zap"); show("#lessonMenu"); });
 
-gary.addEventListener("loadedmetadata",()=>console.log("Gary clip duration:",gary.duration));
-resetLessonTimer(); resetProject();
+  const openProject=$("#openProject");
+  if(openProject) openProject.addEventListener("click",()=>show("#projectScreen"));
+
+  $$(".back-home").forEach(btn=>btn.addEventListener("click",()=>show("#homeScreen")));
+
+  const back=$("#backToDays");
+  if(back) back.addEventListener("click",()=>{ stopLessonTimer(); show("#lessonMenu"); });
+
+  const next=$("#nextSlide");
+  if(next) next.addEventListener("click",()=>{
+    const max=lessons[currentLesson].slides.length-1;
+    if(currentSlide<max){
+      currentSlide++;
+      uiSound("next");
+      renderSlide();
+      setTimeout(pulseCircuit,100);
+    }
+  });
+
+  const prev=$("#prevSlide");
+  if(prev) prev.addEventListener("click",()=>{
+    if(currentSlide>0){
+      currentSlide--;
+      renderSlide();
+    }
+  });
+
+  const pulse=$("#circuitPulseBtn");
+  if(pulse) pulse.addEventListener("click",pulseCircuit);
+
+  $$("[data-time]").forEach(btn=>btn.addEventListener("click",()=>{
+    lessonDefault=Number(btn.dataset.time)||180;
+    resetLessonTimer();
+  }));
+
+  const start=$("#lessonTimerStart");
+  if(start) start.addEventListener("click",startLessonTimer);
+  const reset=$("#lessonTimerReset");
+  if(reset) reset.addEventListener("click",resetLessonTimer);
+
+  const sound=$("#soundToggle");
+  if(sound) sound.addEventListener("click",()=>{
+    soundsEnabled=!soundsEnabled;
+    sound.textContent=soundsEnabled ? "🔊 SOUNDS ON" : "🔇 SOUNDS OFF";
+  });
+
+  resetLessonTimer();
+}
+
+document.addEventListener("DOMContentLoaded",init);
