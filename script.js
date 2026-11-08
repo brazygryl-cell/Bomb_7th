@@ -1,3 +1,123 @@
+
+let soundsEnabled = true;
+let audioCtx;
+function ensureAudio(){
+  if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==="suspended") audioCtx.resume();
+}
+function tone(freq=440,dur=.12,type="sine",vol=.05,delay=0){
+  if(!soundsEnabled) return;
+  ensureAudio();
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.type=type; o.frequency.value=freq; g.gain.value=vol;
+  o.connect(g); g.connect(audioCtx.destination);
+  const t=audioCtx.currentTime+delay;
+  g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.001,t+dur);
+  o.start(t); o.stop(t+dur);
+}
+function uiSound(name){
+  if(!soundsEnabled) return;
+  if(name==="click"){tone(520,.06,"square",.025);tone(700,.05,"square",.018,.06)}
+  if(name==="next"){tone(420,.07,"sine",.03);tone(620,.08,"sine",.03,.07)}
+  if(name==="wrong"){tone(180,.16,"sawtooth",.04);tone(120,.2,"sawtooth",.04,.12)}
+  if(name==="zap"){tone(900,.04,"square",.04);tone(300,.14,"sawtooth",.035,.03)}
+  if(name==="success"){tone(523,.1,"sine",.04);tone(659,.1,"sine",.04,.1);tone(784,.18,"sine",.045,.2)}
+  if(name==="alarm"){tone(220,.16,"square",.035);tone(160,.16,"square",.035,.18)}
+  if(name==="pop"){tone(760,.055,"triangle",.025);tone(980,.07,"triangle",.02,.05)}
+}
+
+const richerNotes = {
+"What Is a Circuit?":[
+"Electric current needs a complete loop. Electricity does not simply travel to a component and stop; it must have a return path.",
+"A power source creates the electrical energy that moves through the circuit.",
+"A load is the part that uses electrical energy to do work, such as producing light, sound, or motion.",
+"An open circuit has a break somewhere in the path. A closed circuit has a complete path."
+],
+"LEDs, Polarity & Resistors":[
+"An LED is a diode, which means current is designed to flow through it in one direction.",
+"Polarity tells us which side of a component connects toward positive and which side connects toward negative.",
+"A resistor limits current. Without enough resistance, too much current can damage an LED.",
+"Troubleshooting an LED starts with power, polarity, resistor placement, and the connection path."
+],
+"Breadboard Basics":[
+"A breadboard lets us prototype circuits without soldering permanent connections.",
+"Inside the breadboard, groups of holes are connected by hidden metal strips.",
+"Power rails usually run along the sides and are useful for distributing positive and negative power.",
+"Terminal rows in the center connect small groups of holes. Placing both legs of a component in the same connected row can prevent the circuit from working as intended."
+],
+"Troubleshooting Lab":[
+"Troubleshooting is a process, not random trial and error.",
+"Change one variable at a time so you can tell which change actually fixed the problem.",
+"Start with the simplest checks: power, complete path, polarity, placement, then component condition.",
+"Evidence-based troubleshooting lets you explain why the circuit failed and why your fix worked."
+],
+"Inputs & Outputs":[
+"An input sends information or a command into a system.",
+"The system processes that input by changing the state of the circuit.",
+"An output is the response the system produces, such as light, sound, or motion.",
+"This is the same Input → Process → Output model used in computer systems."
+],
+"Switches & Control":[
+"A switch controls whether a conductive path is complete.",
+"When a switch opens, it interrupts the path. When it closes, it completes the path.",
+"Control components let users change system behavior without rebuilding the circuit.",
+"In the project, a defuse connection will work by interrupting the path that activates the alarm output."
+],
+"Buzzers & Alarm Outputs":[
+"A buzzer converts electrical energy into sound, making it an audible output.",
+"Alarm systems often combine audible and visual outputs because people notice different signals in different conditions.",
+"A trigger is the event that causes an alarm output to activate.",
+"A well-designed alarm has a clear input, a predictable output, and a controllable path."
+],
+"Multiple Outputs":[
+"A circuit can have more than one output and more than one branch.",
+"In a series path, components share one route for current. In parallel branches, current has separate paths.",
+"Different outputs can represent different system states, such as SAFE, WARNING, and ALARM.",
+"Designing branches carefully is important because one change may affect one output without shutting down the entire system."
+],
+"Mini Security Alarm Build":[
+"Good engineering starts with a plan: identify the input, outputs, power source, and control path before building.",
+"Testing should happen in stages. Confirm one part works before adding another.",
+"Your written explanation should match the physical circuit you built.",
+"A circuit is not finished when it works once; it is finished when you can explain, test, and reproduce its behavior."
+],
+"Reading Circuit Diagrams":[
+"A schematic represents electrical connections using symbols instead of showing the exact physical appearance of the wires.",
+"Diagrams make it easier to communicate, rebuild, and troubleshoot a circuit.",
+"A useful schematic shows how components connect, not where they happen to sit on a desk.",
+"Engineers use diagrams because a clear model is easier to analyze than a pile of wires."
+],
+"Defusal Logic":[
+"Defusal is really controlled troubleshooting: trace the alarm path, identify the control point, and interrupt the correct connection.",
+"Start from the output you want to stop and trace backward toward the power source.",
+"Decoy wires should make a circuit challenging to analyze, but the circuit must still be logically understandable.",
+"Guessing is risky. A strong defusal decision is supported by the circuit path and component roles."
+],
+"December Project Preview":[
+"Your project must be challenging because of logic, not because the wiring is messy or unsafe.",
+"Every team needs a real defuse path, at least two decoy connections, and a circuit diagram that accurately matches the build.",
+"The builder team must be able to explain exactly what every important wire and component does.",
+"The defusing team earns success by tracing the system and defending its reasoning before changing a connection."
+]
+};
+
+function enrichContent(day,slide){
+  let extra="";
+  const t=slide.type;
+  if(t==="Notes" && richerNotes[day.topic]){
+    extra="<div class='copy-block'><span class='copy-label'>✍ COPY THIS</span><ul>"+
+      richerNotes[day.topic].map(x=>"<li>"+x+"</li>").join("")+
+      "</ul></div>";
+  }
+  if(t==="Bell Ringer") extra+="<div class='fun-tip'>⏱ MISSION BRIEFING: Write first. Talk second. Be ready to defend your answer.</div>";
+  if(t==="Vocabulary") extra+="<div class='fun-tip'>🎴 VOCAB CHECK: Pick one word you could explain to a classmate without reading the definition.</div>";
+  if(t==="Activity") extra+="<div class='fun-tip'>🧰 BUILD RULE: Test one change at a time. Random wire-moving does not count as troubleshooting.</div>";
+  if(t==="Exit Ticket") extra+="<div class='fun-tip'>✅ FINAL CHECK: Your answer should use at least one vocabulary word from today.</div>";
+  return slide.html+extra;
+}
+const stickerByType={"Bell Ringer":"⏱️","Objective":"🎯","Vocabulary":"🧠","Notes":"✍️","Activity":"🛠️","Exit Ticket":"✅"};
+const themeByType={"Bell Ringer":"theme-bell","Objective":"theme-objective","Vocabulary":"theme-vocab","Notes":"theme-notes","Activity":"theme-activity","Exit Ticket":"theme-exit"};
+
 const lessons = [
 {date:"MON • NOV 9",topic:"What Is a Circuit?",slides:[
 {type:"Bell Ringer",title:"What makes electricity move?",html:"<p>In your notebook: What do you think must be present for a light to turn on?</p><p><b>Bonus:</b> What would happen if one wire were removed?</p>",timer:true},
@@ -106,13 +226,14 @@ const GARY_FALLBACK = 10.475;
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const gary = $("#garyAudio"), factory = $("#factoryAudio");
+$("#soundToggle").onclick=()=>{soundsEnabled=!soundsEnabled;$("#soundToggle").textContent=soundsEnabled?"🔊 SOUNDS ON":"🔇 SOUNDS OFF";$("#soundToggle").setAttribute("aria-pressed",String(soundsEnabled));if(soundsEnabled)uiSound("pop")};
 
 function show(id){
   $$(".screen").forEach(x=>x.classList.remove("active"));
   $(id).classList.add("active");
 }
-$("#openLessons").onclick=()=>show("#lessonMenu");
-$("#openProject").onclick=()=>show("#projectScreen");
+$("#openLessons").onclick=()=>{uiSound("pop");show("#lessonMenu")};
+$("#openProject").onclick=()=>{uiSound("alarm");show("#projectScreen")};
 $$(".back-home").forEach(b=>b.onclick=()=>show("#homeScreen"));
 $("#backToDays").onclick=()=>{stopLessonTimer();show("#lessonMenu")};
 
@@ -121,7 +242,7 @@ lessons.forEach((d,i)=>{
   const b=document.createElement("button");
   b.className="day-card";
   b.innerHTML=`<span class="date">${d.date}</span><strong>${d.topic}</strong><small>Bell Ringer • Notes • Vocab • Activity • Exit Ticket</small>`;
-  b.onclick=()=>openLesson(i);
+  b.onclick=()=>{uiSound("click");openLesson(i)};
   dayGrid.appendChild(b);
 });
 
@@ -130,12 +251,12 @@ function renderSlide(){
   const day=lessons[currentLesson], s=day.slides[currentSlide];
   $("#deckDate").textContent=day.date; $("#deckTopic").textContent=day.topic;
   $("#slideCount").textContent=`${currentSlide+1} / ${day.slides.length}`;
-  $("#slideBadge").textContent=s.type.toUpperCase(); $("#slideTitle").textContent=s.title; $("#slideBody").innerHTML=s.html;
+  $("#slideBadge").textContent=s.type.toUpperCase(); $("#slideTitle").textContent=s.title; $("#slideBody").innerHTML=enrichContent(day,s); $("#slideSticker").textContent=stickerByType[s.type]||"⚡"; $("#slideStage").className="slide-stage "+(themeByType[s.type]||"");
   $("#slideTimerArea").classList.toggle("hidden",!s.timer);
   if(s.timer){resetLessonTimer(false)}
 }
-$("#nextSlide").onclick=()=>{const max=lessons[currentLesson].slides.length-1;if(currentSlide<max){currentSlide++;renderSlide()}};
-$("#prevSlide").onclick=()=>{if(currentSlide>0){currentSlide--;renderSlide()}};
+$("#nextSlide").onclick=()=>{const max=lessons[currentLesson].slides.length-1;if(currentSlide<max){uiSound("next");currentSlide++;renderSlide()}};
+$("#prevSlide").onclick=()=>{if(currentSlide>0){uiSound("click");currentSlide--;renderSlide()}};
 
 function audioLen(){return Number.isFinite(gary.duration)&&gary.duration>0?gary.duration:GARY_FALLBACK}
 function fmt(v){const sec=Math.max(0,Math.ceil(v));return `${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`}
@@ -143,7 +264,7 @@ function setStatus(txt,color){$("#systemStatus").textContent=txt;$("#statusDot")
 function flash(kind="red"){const f=$("#flashLayer");f.className="";void f.offsetWidth;f.classList.add(kind==="green"?"green":"flash");setTimeout(()=>f.className="",1100)}
 function shake(big=false){document.body.classList.add(big?"mega-shake":"shake");setTimeout(()=>document.body.classList.remove(big?"mega-shake":"shake"),big?1800:800)}
 function play(a){a.currentTime=0;a.play().catch(()=>{})}
-function detonate(){setStatus("ALARM TRIGGERED","#ff4d5e");flash();shake(true)}
+function detonate(){uiSound("alarm");setStatus("ALARM TRIGGERED","#ff4d5e");flash();shake(true)}
 
 function runCountdown(kind){
   const isLesson=kind==="lesson";
@@ -180,10 +301,10 @@ $("#lessonTimerReset").onclick=()=>resetLessonTimer();
 function resetProject(){if(projectInterval)clearInterval(projectInterval);projectInterval=null;gary.pause();gary.currentTime=0;projectRemaining=projectDefault;projectGaryPlayed=false;$("#projectTimerDisplay").textContent=fmt(projectRemaining);setStatus("SYSTEM SAFE","#42cc83")}
 $$("[data-project-time]").forEach(b=>b.onclick=()=>{projectDefault=+b.dataset.projectTime;resetProject()});
 $("#projectArm").onclick=()=>runCountdown("project");
-$("#projectWrong").onclick=()=>{projectRemaining=Math.max(0,projectRemaining-5);$("#projectTimerDisplay").textContent=fmt(projectRemaining);flash();shake()};
-$("#projectDefuse").onclick=()=>{if(projectInterval)clearInterval(projectInterval);projectInterval=null;gary.pause();gary.currentTime=0;setStatus("DEVICE DEFUSED","#42cc83");flash("green");shake()};
+$("#projectWrong").onclick=()=>{uiSound("wrong");projectRemaining=Math.max(0,projectRemaining-5);$("#projectTimerDisplay").textContent=fmt(projectRemaining);flash();shake()};
+$("#projectDefuse").onclick=()=>{uiSound("success");if(projectInterval)clearInterval(projectInterval);projectInterval=null;gary.pause();gary.currentTime=0;setStatus("DEVICE DEFUSED","#42cc83");flash("green");shake()};
 $("#projectReset").onclick=resetProject;
-$("#playFactory").onclick=()=>{play(factory);shake()};
+$("#playFactory").onclick=()=>{uiSound("zap");play(factory);shake()};
 $("#manualDetonate").onclick=detonate;
 
 document.addEventListener("keydown",e=>{
