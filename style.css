@@ -104,3 +104,63 @@ body.shake{animation:shake .35s linear 2}body.mega-shake{animation:mega .55s lin
 .slide-stage.theme-activity .slide-badge{background:#ffb46b}
 .slide-stage.theme-exit .slide-badge{background:#9be4b9}
 .slide-stage.theme-objective .slide-badge{background:#d7caff}
+
+/* ---- V4 CIRCUIT JOURNEY ---- */
+.deck-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.circuit-pulse-btn{border:3px solid var(--ink);border-radius:999px;background:#111;color:#ffe56d;padding:9px 13px;font-weight:900;box-shadow:4px 4px 0 var(--ink)}
+.circuit-progress-wrap{margin:-4px 0 18px;background:#111;border:4px solid var(--ink);border-radius:18px;padding:12px 16px;box-shadow:6px 6px 0 var(--ink)}
+.circuit-progress-label{color:#9be4ff;font-size:.72rem;font-weight:900;letter-spacing:1.8px;margin-bottom:8px}
+.circuit-progress{display:flex;align-items:center;gap:0}
+.circuit-progress .node{
+  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  background:#2d2b3a;border:3px solid #666;color:#888;font-size:1.1rem;
+  position:relative;z-index:2;transition:.3s ease
+}
+.circuit-progress .trace{
+  height:7px;flex:1;background:#2d2b3a;border-top:2px solid #555;border-bottom:2px solid #555;
+  position:relative;overflow:hidden;transition:.3s ease
+}
+.circuit-progress .node.active{background:#ffe56d;color:#171622;border-color:#fff;box-shadow:0 0 18px #ffe56d}
+.circuit-progress .node.complete{background:#42cc83;color:#102319;border-color:#baf7d3}
+.circuit-progress .trace.complete{background:#42cc83;border-color:#8df0b7;box-shadow:0 0 14px rgba(66,204,131,.8)}
+.circuit-progress .trace.active::after{
+  content:"";position:absolute;top:0;bottom:0;width:55px;
+  background:linear-gradient(90deg,transparent,#fff6a8,transparent);
+  animation:traceRun .9s linear infinite
+}
+@keyframes traceRun{from{left:-60px}to{left:100%}}
+.slide-stage{isolation:isolate}
+.circuit-bg{position:absolute!important;inset:0;z-index:0!important;opacity:.17;pointer-events:none}
+.circuit-bg svg{width:100%;height:100%}
+.wire{fill:none;stroke:#6d55d9;stroke-width:4;stroke-linecap:round;stroke-dasharray:14 12;animation:wireMove 1.4s linear infinite}
+.wire2{stroke:#3bbfe8;animation-direction:reverse}.wire3{stroke:#ffad5b;animation-duration:1.8s}
+.junction{fill:#ffe56d;stroke:#171622;stroke-width:3;animation:junctionPulse 1.2s ease-in-out infinite}
+@keyframes wireMove{to{stroke-dashoffset:-52}}
+@keyframes junctionPulse{50%{r:12;filter:drop-shadow(0 0 8px #ffe56d)}}
+.electron{position:absolute!important;width:16px;height:16px;border-radius:50%;background:#fff36d;box-shadow:0 0 14px #fff36d,0 0 28px #ffb347;z-index:1!important;opacity:.85}
+.e1{top:12%;left:-3%;animation:electron1 5s linear infinite}
+.e2{bottom:12%;left:-5%;animation:electron2 6.5s linear infinite 1s}
+.e3{top:-4%;left:44%;animation:electron3 7.5s linear infinite 2s}
+@keyframes electron1{0%{left:-3%;top:12%}22%{left:18%;top:12%}35%{left:18%;top:28%}58%{left:55%;top:28%}73%{left:55%;top:14%}100%{left:103%;top:14%}}
+@keyframes electron2{0%{left:-5%;bottom:12%}30%{left:30%;bottom:12%}48%{left:30%;bottom:28%}72%{left:70%;bottom:28%}100%{left:105%;bottom:12%}}
+@keyframes electron3{0%{top:-4%;left:44%}22%{top:26%;left:44%}45%{top:26%;left:64%}70%{top:50%;left:64%}100%{top:50%;left:103%}}
+.stage-callout{
+  position:absolute!important;right:26px;bottom:22px;z-index:3!important;
+  background:#111;color:#ffe56d;border:3px solid var(--ink);border-radius:999px;
+  padding:8px 12px;font-size:.75rem;font-weight:900;letter-spacing:1.1px;
+  box-shadow:4px 4px 0 var(--ink);opacity:.9
+}
+.slide-stage.stage-enter{animation:stageEnter .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes stageEnter{0%{transform:translateX(28px) scale(.985);opacity:.2;filter:brightness(1.4)}100%{transform:none;opacity:1;filter:none}}
+.slide-stage.pulse-circuit .wire{stroke-width:8;opacity:1;filter:drop-shadow(0 0 7px currentColor)}
+.slide-stage.pulse-circuit .junction{animation:junctionPulse .3s ease-in-out 3}
+.slide-stage.pulse-circuit .electron{width:22px;height:22px;box-shadow:0 0 22px #fff36d,0 0 40px #ff7f50}
+.slide-stage.theme-activity .wire{stroke:#ff8f3d}.slide-stage.theme-notes .wire{stroke:#7057d8}.slide-stage.theme-exit .wire{stroke:#42cc83}
+.slide-stage.theme-bell .stage-callout{background:#3d2b00;color:#ffe56d}
+.slide-stage.theme-objective .stage-callout{background:#301f71;color:#fff}
+.slide-stage.theme-vocab .stage-callout{background:#0a4561;color:#d9f6ff}
+.slide-stage.theme-notes .stage-callout{background:#2f1f64;color:#efe9ff}
+.slide-stage.theme-activity .stage-callout{background:#6b3300;color:#fff1cf}
+.slide-stage.theme-exit .stage-callout{background:#0e5332;color:#e5fff0}
+.spark{position:absolute!important;z-index:5!important;font-size:1.5rem;pointer-events:none;animation:sparkFly .7s ease-out forwards}
+@keyframes sparkFly{0%{transform:scale(.3) rotate(0);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1.5) rotate(120deg);opacity:0}}
