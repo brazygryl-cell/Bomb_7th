@@ -93,3 +93,14 @@ body.shake{animation:shake .35s linear 2}body.mega-shake{animation:mega .55s lin
 .day-card strong{font-size:1.55rem}
 .deck-nav button{font-size:1.05rem;padding:12px 18px}
 @media(max-width:700px){.slide-stage{padding:28px 24px}.slide-sticker{font-size:3rem;right:18px;top:18px}#slideBody{font-size:1.16rem}}
+
+.title-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.build-badge{display:inline-block;background:#ffe56d;color:#171622;border:3px solid #fff;border-radius:999px;padding:6px 10px;font-size:.72rem;font-weight:900;letter-spacing:1px;box-shadow:3px 3px 0 rgba(255,255,255,.2)}
+#slideBody .note-card{transition:transform .15s ease}
+#slideBody .note-card:hover{transform:rotate(-.5deg) scale(1.01)}
+.slide-stage.theme-bell .slide-badge{background:#ffdf6e}
+.slide-stage.theme-vocab .slide-badge{background:#8ed8ff}
+.slide-stage.theme-notes .slide-badge{background:#cbbdff}
+.slide-stage.theme-activity .slide-badge{background:#ffb46b}
+.slide-stage.theme-exit .slide-badge{background:#9be4b9}
+.slide-stage.theme-objective .slide-badge{background:#d7caff}
