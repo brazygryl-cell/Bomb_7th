@@ -118,6 +118,48 @@ function enrichContent(day,slide){
 const stickerByType={"Bell Ringer":"⏱️","Objective":"🎯","Vocabulary":"🧠","Notes":"✍️","Activity":"🛠️","Exit Ticket":"✅"};
 const themeByType={"Bell Ringer":"theme-bell","Objective":"theme-objective","Vocabulary":"theme-vocab","Notes":"theme-notes","Activity":"theme-activity","Exit Ticket":"theme-exit"};
 
+
+const circuitStageNames = {
+  "Bell Ringer":"POWER SOURCE ONLINE",
+  "Objective":"SWITCH CLOSED • MISSION SET",
+  "Vocabulary":"CURRENT FLOWING • COMPONENT ID",
+  "Notes":"CIRCUIT ENERGIZED • DATA TRANSFER",
+  "Activity":"LOAD ENGAGED • BUILD MODE",
+  "Exit Ticket":"FINAL DIAGNOSTIC • SYSTEM CHECK"
+};
+function updateCircuitProgress(){
+  const nodes=$("#circuitProgress .node"), traces=$("#circuitProgress .trace");
+  nodes.forEach((n,i)=>{
+    n.classList.toggle("complete",i<currentSlide);
+    n.classList.toggle("active",i===currentSlide);
+  });
+  traces.forEach((t,i)=>{
+    t.classList.toggle("complete",i<currentSlide);
+    t.classList.toggle("active",i===currentSlide-1 || i===currentSlide);
+  });
+}
+function sparkBurst(count=8){
+  const stage=$("#slideStage");
+  for(let i=0;i<count;i++){
+    const s=document.createElement("span");
+    s.className="spark"; s.textContent=Math.random()>.5?"✦":"⚡";
+    s.style.left=(20+Math.random()*60)+"%";
+    s.style.top=(20+Math.random()*55)+"%";
+    s.style.setProperty("--dx",(Math.random()*180-90)+"px");
+    s.style.setProperty("--dy",(Math.random()*120-60)+"px");
+    stage.appendChild(s);
+    setTimeout(()=>s.remove(),800);
+  }
+}
+function pulseCircuit(){
+  const stage=$("#slideStage");
+  uiSound("zap");
+  stage.classList.remove("pulse-circuit"); void stage.offsetWidth; stage.classList.add("pulse-circuit");
+  sparkBurst(10);
+  setTimeout(()=>stage.classList.remove("pulse-circuit"),900);
+}
+$("#circuitPulseBtn").onclick=pulseCircuit;
+
 const lessons = [
 {date:"MON • NOV 9",topic:"What Is a Circuit?",slides:[
 {type:"Bell Ringer",title:"What makes electricity move?",html:"<p>In your notebook: What do you think must be present for a light to turn on?</p><p><b>Bonus:</b> What would happen if one wire were removed?</p>",timer:true},
@@ -246,16 +288,16 @@ lessons.forEach((d,i)=>{
   dayGrid.appendChild(b);
 });
 
-function openLesson(i){currentLesson=i;currentSlide=0;show("#lessonDeck");renderSlide()}
+function openLesson(i){currentLesson=i;currentSlide=0;show("#lessonDeck");renderSlide();setTimeout(()=>pulseCircuit(),250)}
 function renderSlide(){uiSound("pop");
   const day=lessons[currentLesson], s=day.slides[currentSlide];
   $("#deckDate").textContent=day.date; $("#deckTopic").textContent=day.topic;
   $("#slideCount").textContent=`${currentSlide+1} / ${day.slides.length}`;
-  $("#slideBadge").textContent=s.type.toUpperCase(); $("#slideTitle").textContent=s.title; $("#slideBody").innerHTML=enrichContent(day,s); $("#slideSticker").textContent=stickerByType[s.type]||"⚡"; $("#slideStage").className="slide-stage "+(themeByType[s.type]||"");
+  $("#slideBadge").textContent=s.type.toUpperCase(); $("#slideTitle").textContent=s.title; $("#slideBody").innerHTML=enrichContent(day,s); $("#slideSticker").textContent=stickerByType[s.type]||"⚡"; $("#slideStage").className="slide-stage "+(themeByType[s.type]||"")+" stage-enter"; $("#stageCallout").textContent=circuitStageNames[s.type]||"SYSTEM ONLINE"; updateCircuitProgress(); setTimeout(()=>$("#slideStage").classList.remove("stage-enter"),500);
   $("#slideTimerArea").classList.toggle("hidden",!s.timer);
   if(s.timer){resetLessonTimer(false)}
 }
-$("#nextSlide").onclick=()=>{const max=lessons[currentLesson].slides.length-1;if(currentSlide<max){uiSound("next");currentSlide++;renderSlide()}};
+$("#nextSlide").onclick=()=>{const max=lessons[currentLesson].slides.length-1;if(currentSlide<max){uiSound("next");sparkBurst(5);currentSlide++;renderSlide();setTimeout(()=>pulseCircuit(),120)}};
 $("#prevSlide").onclick=()=>{if(currentSlide>0){uiSound("click");currentSlide--;renderSlide()}};
 
 function audioLen(){return Number.isFinite(gary.duration)&&gary.duration>0?gary.duration:GARY_FALLBACK}
@@ -295,7 +337,7 @@ function runCountdown(kind){
 function stopLessonTimer(){if(lessonInterval)clearInterval(lessonInterval);lessonInterval=null}
 function resetLessonTimer(update=true){stopLessonTimer();gary.pause();gary.currentTime=0;lessonRemaining=lessonDefault;lessonGaryPlayed=false;if(update)$("#lessonTimerDisplay").textContent=fmt(lessonRemaining);else $("#lessonTimerDisplay").textContent=fmt(lessonRemaining);setStatus("SYSTEM SAFE","#42cc83")}
 $$("[data-time]").forEach(b=>b.onclick=()=>{lessonDefault=+b.dataset.time;resetLessonTimer()});
-$("#lessonTimerStart").onclick=()=>runCountdown("lesson");
+$("#lessonTimerStart").onclick=()=>{uiSound("alarm");pulseCircuit();runCountdown("lesson")};
 $("#lessonTimerReset").onclick=()=>resetLessonTimer();
 
 function resetProject(){if(projectInterval)clearInterval(projectInterval);projectInterval=null;gary.pause();gary.currentTime=0;projectRemaining=projectDefault;projectGaryPlayed=false;$("#projectTimerDisplay").textContent=fmt(projectRemaining);setStatus("SYSTEM SAFE","#42cc83")}
