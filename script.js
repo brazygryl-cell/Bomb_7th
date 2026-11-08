@@ -1,4 +1,6 @@
-const $ = s => document.querySelector(s);\nconst $$ = s => [...document.querySelectorAll(s)];\n
+const $ = s => document.querySelector(s);
+const $ = s => [...document.querySelectorAll(s)];
+
 let soundsEnabled = true;
 let audioCtx;
 function ensureAudio(){
@@ -128,6 +130,8 @@ const circuitStageNames = {
   "Exit Ticket":"FINAL DIAGNOSTIC • SYSTEM CHECK"
 };
 function updateCircuitProgress(){
+  const progress = $("#circuitProgress");
+  if(!progress) return;
   const nodes=$("#circuitProgress .node"), traces=$("#circuitProgress .trace");
   nodes.forEach((n,i)=>{
     n.classList.toggle("complete",i<currentSlide);
@@ -140,6 +144,7 @@ function updateCircuitProgress(){
 }
 function sparkBurst(count=8){
   const stage=$("#slideStage");
+  if(!stage) return;
   for(let i=0;i<count;i++){
     const s=document.createElement("span");
     s.className="spark"; s.textContent=Math.random()>.5?"✦":"⚡";
@@ -153,12 +158,14 @@ function sparkBurst(count=8){
 }
 function pulseCircuit(){
   const stage=$("#slideStage");
+  if(!stage) return;
   uiSound("zap");
   stage.classList.remove("pulse-circuit"); void stage.offsetWidth; stage.classList.add("pulse-circuit");
   sparkBurst(10);
   setTimeout(()=>stage.classList.remove("pulse-circuit"),900);
 }
-$("#circuitPulseBtn").onclick=pulseCircuit;
+const pulseBtn=$("#circuitPulseBtn");
+if(pulseBtn) pulseBtn.onclick=pulseCircuit;
 
 const lessons = [
 {date:"MON • NOV 9",topic:"What Is a Circuit?",slides:[
@@ -272,8 +279,8 @@ function show(id){
   $$(".screen").forEach(x=>x.classList.remove("active"));
   $(id).classList.add("active");
 }
-$("#openLessons").onclick=()=>{uiSound("zap");show("#lessonMenu")};
-$("#openProject").onclick=()=>{uiSound("alarm");show("#projectScreen")};
+const openLessonsBtn=$("#openLessons"); if(openLessonsBtn) openLessonsBtn.onclick=()=>{uiSound("zap");show("#lessonMenu")};
+const openProjectBtn=$("#openProject"); if(openProjectBtn) openProjectBtn.onclick=()=>{uiSound("alarm");show("#projectScreen")};
 $$(".back-home").forEach(b=>b.onclick=()=>show("#homeScreen"));
 $("#backToDays").onclick=()=>{stopLessonTimer();show("#lessonMenu")};
 
