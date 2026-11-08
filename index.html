@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Bomb Squad: Circuit Lab</title>
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
   <div id="flashLayer"></div>
@@ -12,7 +12,7 @@
   <header class="topbar">
     <div>
       <p class="eyebrow">MS. CJ • 7TH GRADE COMPUTER LITERACY</p>
-      <div class="title-row"><h1>BOMB SQUAD: CIRCUIT LAB</h1><span class="build-badge">V3 • FUN MODE</span></div>
+      <div class="title-row"><h1>BOMB SQUAD: CIRCUIT LAB</h1><span class="build-badge">V4 • CIRCUIT MODE</span></div>
     </div>
     <div class="top-actions"><button id="soundToggle" class="sound-toggle" aria-pressed="true">🔊 SOUNDS ON</button><div class="status-wrap"><span id="statusDot"></span><span id="systemStatus">SYSTEM SAFE</span></div></div>
   </header>
@@ -51,10 +51,41 @@
       <div class="deck-top">
         <button id="backToDays">← DAYS</button>
         <div class="deck-title"><span id="deckDate"></span><strong id="deckTopic"></strong></div>
-        <div class="slide-count" id="slideCount"></div>
+        <div class="deck-controls"><button id="circuitPulseBtn" class="circuit-pulse-btn">⚡ PULSE CIRCUIT</button><div class="slide-count" id="slideCount"></div></div>
       </div>
 
-      <div class="slide-stage" id="slideStage">
+      <div class="circuit-progress-wrap">
+    <div class="circuit-progress-label">CIRCUIT PATH</div>
+    <div class="circuit-progress" id="circuitProgress">
+      <span class="node" data-step="0">⚡</span>
+      <span class="trace"></span>
+      <span class="node" data-step="1">🎯</span>
+      <span class="trace"></span>
+      <span class="node" data-step="2">🧠</span>
+      <span class="trace"></span>
+      <span class="node" data-step="3">✍️</span>
+      <span class="trace"></span>
+      <span class="node" data-step="4">🛠️</span>
+      <span class="trace"></span>
+      <span class="node" data-step="5">✅</span>
+    </div>
+  </div>
+  <div class="slide-stage" id="slideStage">
+    <div class="circuit-bg" aria-hidden="true">
+      <svg viewBox="0 0 1000 620" preserveAspectRatio="none">
+        <path class="wire wire1" d="M-20 90 H150 V180 H360 V90 H560 V220 H760 V120 H1020"/>
+        <path class="wire wire2" d="M-10 500 H180 V410 H330 V520 H520 V390 H720 V500 H1010"/>
+        <path class="wire wire3" d="M90 -10 V120 H250 V280 H450 V180 H640 V320 H870 V180 H1010"/>
+        <circle class="junction j1" cx="150" cy="180" r="8"/>
+        <circle class="junction j2" cx="560" cy="220" r="8"/>
+        <circle class="junction j3" cx="330" cy="520" r="8"/>
+        <circle class="junction j4" cx="640" cy="320" r="8"/>
+      </svg>
+    </div>
+    <div class="electron e1"></div>
+    <div class="electron e2"></div>
+    <div class="electron e3"></div>
+    <div class="stage-callout" id="stageCallout">POWER SOURCE ONLINE</div>
         <div class="slide-badge" id="slideBadge"></div><div class="slide-sticker" id="slideSticker">⚡</div>
         <h2 id="slideTitle"></h2>
         <div id="slideBody"></div>
@@ -134,6 +165,6 @@
   <audio id="garyAudio" src="sounds/bomb_strapped.mp3" preload="metadata"></audio>
   <audio id="factoryAudio" src="sounds/bomb_factory.mp3" preload="auto"></audio>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>
