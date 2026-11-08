@@ -247,7 +247,7 @@ lessons.forEach((d,i)=>{
 });
 
 function openLesson(i){currentLesson=i;currentSlide=0;show("#lessonDeck");renderSlide()}
-function renderSlide(){
+function renderSlide(){uiSound("pop");
   const day=lessons[currentLesson], s=day.slides[currentSlide];
   $("#deckDate").textContent=day.date; $("#deckTopic").textContent=day.topic;
   $("#slideCount").textContent=`${currentSlide+1} / ${day.slides.length}`;
