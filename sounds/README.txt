@@ -1,0 +1,1 @@
+Place these two files in this folder:\n\nbomb_strapped.mp3\nbomb_factory.mp3\n\nThe app is already wired to use these exact filenames.
