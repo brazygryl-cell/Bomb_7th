@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Bomb Squad: Circuit Lab</title>
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=5" />
 </head>
 <body>
   <div id="flashLayer"></div>
@@ -12,7 +12,7 @@
   <header class="topbar">
     <div>
       <p class="eyebrow">MS. CJ • 7TH GRADE COMPUTER LITERACY</p>
-      <div class="title-row"><h1>BOMB SQUAD: CIRCUIT LAB</h1><span class="build-badge">V4 • CIRCUIT MODE</span></div>
+      <div class="title-row"><h1>BOMB SQUAD: CIRCUIT LAB</h1><span class="build-badge">V5 • DECODE MODE</span></div>
     </div>
     <div class="top-actions"><button id="soundToggle" class="sound-toggle" aria-pressed="true">🔊 SOUNDS ON</button><div class="status-wrap"><span id="statusDot"></span><span id="systemStatus">SYSTEM SAFE</span></div></div>
   </header>
@@ -20,21 +20,28 @@
   <main>
     <section id="homeScreen" class="screen active">
       <div class="hero">
-        <p class="kicker">NOVEMBER → DECEMBER</p>
-        <h2>Learn the circuit. Build the alarm. Defuse the chaos.</h2>
-        <p>Choose the classroom lesson deck or jump into the December project control center.</p>
+        <p class="kicker">SYSTEM ACCESS // CIRCUITRY UNIT</p>
+        <h2>DECODE THE CIRCUIT.</h2>
+        <p class="terminal-line">&gt; trace_signal.exe &nbsp; &gt; diagnose_faults.exe &nbsp; &gt; restore_system.exe</p>
+        <p>Select a module to enter the circuitry system.</p>
       </div>
 
-      <div class="mode-grid">
+      <div class="system-strip">
+    <span>CORE STATUS: <b>ONLINE</b></span>
+    <span>SIGNAL: <b>STABLE</b></span>
+    <span>FAULTS DETECTED: <b>06</b></span>
+    <span>ACCESS LEVEL: <b>7TH GRADE</b></span>
+  </div>
+  <div class="mode-grid">
         <button class="mode-card lesson-mode" id="openLessons">
           <span class="mode-icon">🧠</span>
-          <strong>DAILY LESSONS</strong>
-          <small>Bell Ringer • Notes • Vocab • Activity • Exit Ticket</small>
+          <strong>ACCESS LESSON MODULES</strong>
+          <small>[ AUTHORIZED ] Notes • Diagnostics • Builds • Exit Checks</small>
         </button>
         <button class="mode-card project-mode" id="openProject">
           <span class="mode-icon">💣</span>
-          <strong>PROJECT MODE</strong>
-          <small>Build Requirements • Defusal Rules • Tournament Console</small>
+          <strong>LOCKED: PROJECT PROTOCOL</strong>
+          <small>[ DECEMBER ACCESS ] Build • Defuse • Tournament</small>
         </button>
       </div>
     </section>
@@ -165,6 +172,6 @@
   <audio id="garyAudio" src="sounds/bomb_strapped.mp3" preload="metadata"></audio>
   <audio id="factoryAudio" src="sounds/bomb_factory.mp3" preload="auto"></audio>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
