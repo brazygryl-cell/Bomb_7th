@@ -1,4 +1,4 @@
-
+const $ = s => document.querySelector(s);\nconst $$ = s => [...document.querySelectorAll(s)];\n
 let soundsEnabled = true;
 let audioCtx;
 function ensureAudio(){
@@ -265,8 +265,6 @@ let projectDefault = 60, projectRemaining = 60, projectInterval = null;
 let lessonGaryPlayed = false, projectGaryPlayed = false;
 const GARY_FALLBACK = 10.475;
 
-const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
 const gary = $("#garyAudio"), factory = $("#factoryAudio");
 $("#soundToggle").onclick=()=>{soundsEnabled=!soundsEnabled;$("#soundToggle").textContent=soundsEnabled?"🔊 SOUNDS ON":"🔇 SOUNDS OFF";$("#soundToggle").setAttribute("aria-pressed",String(soundsEnabled));if(soundsEnabled)uiSound("pop")};
 
@@ -274,7 +272,7 @@ function show(id){
   $$(".screen").forEach(x=>x.classList.remove("active"));
   $(id).classList.add("active");
 }
-$("#openLessons").onclick=()=>{uiSound("pop");show("#lessonMenu")};
+$("#openLessons").onclick=()=>{uiSound("zap");show("#lessonMenu")};
 $("#openProject").onclick=()=>{uiSound("alarm");show("#projectScreen")};
 $$(".back-home").forEach(b=>b.onclick=()=>show("#homeScreen"));
 $("#backToDays").onclick=()=>{stopLessonTimer();show("#lessonMenu")};
