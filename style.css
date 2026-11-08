@@ -164,3 +164,83 @@ body.shake{animation:shake .35s linear 2}body.mega-shake{animation:mega .55s lin
 .slide-stage.theme-exit .stage-callout{background:#0e5332;color:#e5fff0}
 .spark{position:absolute!important;z-index:5!important;font-size:1.5rem;pointer-events:none;animation:sparkFly .7s ease-out forwards}
 @keyframes sparkFly{0%{transform:scale(.3) rotate(0);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1.5) rotate(120deg);opacity:0}}
+
+/* ---- V5 DECODE TERMINAL HOME + LESSON MENU ---- */
+body{background:#03070b;color:#d7f7ff}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-3;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(0,210,255,.12),transparent 28%),
+    radial-gradient(circle at 78% 70%,rgba(130,0,255,.11),transparent 32%),
+    linear-gradient(rgba(0,220,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,220,255,.035) 1px,transparent 1px);
+  background-size:auto,auto,30px 30px,30px 30px
+}
+body:after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.18;
+  background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.03) 4px);
+  mix-blend-mode:screen
+}
+.topbar{background:rgba(2,7,12,.96);border-bottom:1px solid #00d9ff;box-shadow:0 0 24px rgba(0,217,255,.2)}
+.eyebrow{color:#68efff}.build-badge{background:#0b1720;color:#7df4ff;border-color:#00d9ff;box-shadow:0 0 14px rgba(0,217,255,.35)}
+.sound-toggle,.status-wrap{background:#07131a!important;border-color:#00d9ff!important;color:#dffcff;box-shadow:0 0 12px rgba(0,217,255,.25)}
+#homeScreen .hero{
+  background:linear-gradient(135deg,rgba(3,15,23,.98),rgba(7,8,18,.96));
+  color:#eaffff;border:1px solid #00d9ff;border-radius:8px;
+  box-shadow:0 0 34px rgba(0,217,255,.18),inset 0 0 45px rgba(0,217,255,.035);
+  position:relative;overflow:hidden;padding:42px
+}
+#homeScreen .hero:before{
+  content:"SYS:// CIRCUIT_DECODER // READY";
+  position:absolute;right:22px;top:18px;color:#36e6ff;font-family:"Courier New",monospace;
+  font-size:.72rem;letter-spacing:1.4px
+}
+#homeScreen .hero h2{
+  font-family:"Courier New",monospace;color:#fff;font-size:clamp(3rem,7vw,6.2rem);
+  letter-spacing:-3px;text-shadow:0 0 10px #00d9ff,0 0 28px rgba(0,217,255,.45);
+  margin-top:18px
+}
+#homeScreen .hero .kicker{color:#70f4ff;font-family:"Courier New",monospace}
+.terminal-line{font-family:"Courier New",monospace;color:#78ffb7!important;font-weight:900;font-size:1rem!important}
+.system-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  border:1px solid #244a59;background:#244a59;margin-bottom:16px
+}
+.system-strip span{background:#071017;padding:10px 14px;font-family:"Courier New",monospace;font-size:.76rem;color:#84aebb}
+.system-strip b{color:#76ffd0}
+.mode-grid{gap:16px}
+#homeScreen .mode-card{
+  background:linear-gradient(145deg,#06131a,#09101d)!important;color:#e9fdff;
+  border:1px solid #1b8eaa;border-radius:6px;box-shadow:0 0 18px rgba(0,217,255,.13);
+  min-height:240px;position:relative;overflow:hidden
+}
+#homeScreen .mode-card:before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:#00d9ff;box-shadow:0 0 14px #00d9ff
+}
+#homeScreen .mode-card.project-mode{opacity:.55;filter:saturate(.55)}
+#homeScreen .mode-card strong{font-family:"Courier New",monospace;color:#a9f7ff;letter-spacing:-.6px}
+#homeScreen .mode-card small{color:#7da8b5;font-family:"Courier New",monospace}
+#homeScreen .mode-card:hover{transform:translateY(-4px);box-shadow:0 0 35px rgba(0,217,255,.34)}
+#homeScreen .mode-icon{filter:drop-shadow(0 0 9px #00d9ff)}
+#lessonMenu .screen-title{border-bottom:1px solid #1e7389;padding-bottom:14px}
+#lessonMenu .screen-title h2{font-family:"Courier New",monospace;color:#dffcff;text-shadow:0 0 10px rgba(0,217,255,.45)}
+#lessonMenu .screen-title .kicker{color:#60efff}
+#lessonMenu .back-home,#backToDays{background:#07141b;color:#bff9ff;border-color:#1c879f;box-shadow:0 0 12px rgba(0,217,255,.2)}
+#lessonMenu .day-grid{gap:12px}
+#lessonMenu .day-card{
+  background:linear-gradient(145deg,#07131a,#0b101a);color:#dffcff;
+  border:1px solid #1c7891;border-radius:5px;box-shadow:none;min-height:160px;
+  position:relative;overflow:hidden
+}
+#lessonMenu .day-card:before{content:"MODULE";position:absolute;right:10px;top:8px;font-family:"Courier New",monospace;font-size:.62rem;color:#376878}
+#lessonMenu .day-card .date{color:#69eeff;font-family:"Courier New",monospace}
+#lessonMenu .day-card strong{font-family:"Courier New",monospace;color:#fff}
+#lessonMenu .day-card small{color:#8aa8b2}
+#lessonMenu .day-card:hover{border-color:#72f1ff;box-shadow:0 0 20px rgba(0,217,255,.22);transform:translateY(-3px)}
+#lessonDeck{color:var(--ink)}
+#lessonDeck .deck-top{background:#07131a;color:#dffcff;border:1px solid #1c7891;border-radius:6px;padding:10px 12px}
+#lessonDeck .deck-title span{color:#5feeff}#lessonDeck .deck-title strong{color:#fff}
+.circuit-progress-wrap{border-radius:5px;border-color:#1a8098;box-shadow:0 0 18px rgba(0,217,255,.15)}
+.circuit-progress-label{font-family:"Courier New",monospace}
+.circuit-pulse-btn{border-color:#00d9ff;color:#85f6ff;box-shadow:0 0 12px rgba(0,217,255,.25)}
+@media(max-width:900px){.system-strip{grid-template-columns:1fr 1fr}}
