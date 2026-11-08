@@ -1,220 +1,200 @@
 const lessons = [
-  {
-    label: "MISSION 01",
-    title: "What makes a circuit work?",
-    text: "A complete circuit needs a power source, a conductive path, and a load/output. Break the path and the circuit becomes open."
-  },
-  {
-    label: "MISSION 02",
-    title: "Open vs. closed circuits",
-    text: "Closed circuit = complete path and current can flow. Open circuit = the path is broken, so the output stops."
-  },
-  {
-    label: "MISSION 03",
-    title: "LED polarity",
-    text: "LEDs only work in the correct direction. Check the anode/cathode orientation before assuming the entire circuit is broken."
-  },
-  {
-    label: "MISSION 04",
-    title: "Breadboard connections",
-    text: "Breadboards hide internal connections. Trace rows and power rails carefully before moving random wires."
-  },
-  {
-    label: "MISSION 05",
-    title: "Inputs and outputs",
-    text: "A button or switch can be an input. LEDs and buzzers are outputs. The circuit determines how the output responds."
-  },
-  {
-    label: "MISSION 06",
-    title: "Troubleshoot with evidence",
-    text: "Do not guess. Check power, polarity, continuity, component placement, and the intended path one step at a time."
-  },
-  {
-    label: "MISSION 07",
-    title: "Defusal logic",
-    text: "To stop an alarm without destroying the system, identify which path controls the alarm output and interrupt that specific path."
-  }
+{date:"MON • NOV 9",topic:"What Is a Circuit?",slides:[
+{type:"Bell Ringer",title:"What makes electricity move?",html:"<p>In your notebook: What do you think must be present for a light to turn on?</p><p><b>Bonus:</b> What would happen if one wire were removed?</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> identify the parts of a basic circuit and explain the difference between an open and closed circuit.</div>"},
+{type:"Vocabulary",title:"Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>Circuit</b><br>A complete path electricity can travel through.</div><div class='note-card vocab'><b>Current</b><br>The flow of electric charge.</div><div class='note-card vocab'><b>Open Circuit</b><br>A broken path; current cannot complete the loop.</div><div class='note-card vocab'><b>Closed Circuit</b><br>A complete path; current can flow.</div></div>"},
+{type:"Notes",title:"The basic circuit",html:"<ul><li><b>Power source:</b> provides electrical energy.</li><li><b>Conductive path:</b> wires carry current.</li><li><b>Load/output:</b> LED, buzzer, motor, etc.</li><li>Break the path anywhere → the circuit becomes open.</li></ul>"},
+{type:"Activity",title:"Human Circuit Challenge",html:"<div class='note-card activity'><p>Each person represents a component. Create a complete path from power → wire → output → return path.</p><p>Ms. CJ will “break” one part. Your team identifies where the circuit became open.</p></div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'><p>1. What is the difference between an open and closed circuit?</p><p>2. Why can one missing connection stop the entire system?</p></div>",timer:true}
+]},
+{date:"TUE • NOV 10",topic:"LEDs, Polarity & Resistors",slides:[
+{type:"Bell Ringer",title:"Why might an LED fail?",html:"<p>An LED is connected to a battery but does not light. List <b>two</b> possible reasons.</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> correctly identify LED polarity and explain why resistors are used in a circuit.</div>"},
+{type:"Vocabulary",title:"Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>LED</b><br>Light-emitting diode.</div><div class='note-card vocab'><b>Polarity</b><br>The correct positive/negative orientation.</div><div class='note-card vocab'><b>Anode</b><br>Positive side of an LED.</div><div class='note-card vocab'><b>Resistor</b><br>Limits current to protect components.</div></div>"},
+{type:"Notes",title:"LED rules",html:"<ul><li>LEDs work in only one direction.</li><li>Long leg usually = anode (+).</li><li>Short leg usually = cathode (−).</li><li>A resistor limits current so the LED is not damaged.</li></ul>"},
+{type:"Activity",title:"Build It",html:"<div class='note-card activity'>Build a working LED circuit. Then intentionally reverse the LED and record what changes. Troubleshoot before asking for help.</div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'>What are two things you should check when an LED does not turn on?</div>",timer:true}
+]},
+{date:"THU • NOV 12",topic:"Breadboard Basics",slides:[
+{type:"Bell Ringer",title:"Hidden connections",html:"<p>Why do you think a breadboard has so many holes? Are all the holes connected?</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> identify breadboard rows and power rails and place components so they connect correctly.</div>"},
+{type:"Vocabulary",title:"Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>Breadboard</b><br>A reusable board for building circuits without solder.</div><div class='note-card vocab'><b>Power Rail</b><br>Long connected row used for + or − power.</div><div class='note-card vocab'><b>Terminal Row</b><br>Short connected groups used for components.</div><div class='note-card vocab'><b>Jumper Wire</b><br>A wire used to connect points on the board.</div></div>"},
+{type:"Notes",title:"Read the board before wiring",html:"<ul><li>Not every hole is connected.</li><li>Components must share connected rows to interact.</li><li>Power rails make distributing + and − easier.</li><li>Random placement causes invisible wiring errors.</li></ul>"},
+{type:"Activity",title:"Breadboard Map",html:"<div class='note-card activity'>Use a printed breadboard map. Shade which holes are internally connected, then rebuild Tuesday’s LED circuit on the breadboard.</div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'>Explain how breadboard holes are connected and why that matters when troubleshooting.</div>",timer:true}
+]},
+{date:"FRI • NOV 13",topic:"Troubleshooting Lab",slides:[
+{type:"Bell Ringer",title:"Fix it without guessing",html:"<p>Put these in the order you would check them: polarity, power, wire placement, component condition.</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> troubleshoot a malfunctioning circuit using evidence instead of random changes.</div>"},
+{type:"Vocabulary",title:"Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>Troubleshoot</b><br>Systematically identify and fix a problem.</div><div class='note-card vocab'><b>Fault</b><br>The specific problem causing failure.</div><div class='note-card vocab'><b>Test</b><br>A deliberate check used to gather evidence.</div><div class='note-card vocab'><b>Evidence</b><br>Observed information that supports a diagnosis.</div></div>"},
+{type:"Notes",title:"Troubleshooting sequence",html:"<ol><li>Check power.</li><li>Trace the full path.</li><li>Check polarity.</li><li>Check component placement.</li><li>Change one thing at a time.</li><li>Retest.</li></ol>"},
+{type:"Activity",title:"Circuit Doctor Rotation",html:"<div class='note-card activity'>Each group receives a broken circuit. Record: <b>Problem → Evidence → Fix → Result.</b> Rotate after repair.</div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'>What troubleshooting strategy helped you locate the fault fastest today?</div>",timer:true}
+]},
+{date:"MON • NOV 16",topic:"Inputs & Outputs",slides:[
+{type:"Bell Ringer",title:"Input → Process → Output",html:"<p>Label the input and output in this system: <b>button → circuit → buzzer</b>.</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> explain how an input causes a circuit to produce an output.</div>"},
+{type:"Vocabulary",title:"Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>Input</b><br>A signal or action sent into a system.</div><div class='note-card vocab'><b>Output</b><br>The response produced by a system.</div><div class='note-card vocab'><b>Switch</b><br>A device that opens or closes a path.</div><div class='note-card vocab'><b>Signal</b><br>Information sent through a system.</div></div>"},
+{type:"Notes",title:"Physical systems still use IPO",html:"<ul><li>Keyboard → computer → monitor</li><li>Button → circuit → LED</li><li>Switch → circuit → buzzer</li></ul>"},
+{type:"Activity",title:"Button-Controlled LED",html:"<div class='note-card activity'>Build a circuit where the LED turns on only when the button/switch creates a complete path.</div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'>Identify the input and output in your circuit and explain what changed when the button was pressed.</div>",timer:true}
+]},
+{date:"TUE • NOV 17",topic:"Switches & Control",slides:[
+{type:"Bell Ringer",title:"How do you stop a circuit?",html:"<p>If a buzzer is sounding, what could a switch do to stop it?</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> use a switch to control whether a circuit path is open or closed.</div>"},
+{type:"Vocabulary",title:"Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>Control</b><br>A component that changes system behavior.</div><div class='note-card vocab'><b>Normally Open</b><br>Path is open until activated.</div><div class='note-card vocab'><b>Normally Closed</b><br>Path is closed until activated.</div><div class='note-card vocab'><b>Defuse Path</b><br>The connection that disables the alarm output.</div></div>"},
+{type:"Notes",title:"Switches control paths",html:"<ul><li>Opening a switch breaks the path.</li><li>Closing a switch completes the path.</li><li>In December, one connection will act as the correct defuse path.</li></ul>"},
+{type:"Activity",title:"Add a Control",html:"<div class='note-card activity'>Add a switch to yesterday’s LED circuit. Your circuit must have a clear ON and OFF state.</div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'>How can opening one connection disable an alarm without disconnecting every component?</div>",timer:true}
+]},
+{date:"WED • NOV 18",topic:"Buzzers & Alarm Outputs",slides:[
+{type:"Bell Ringer",title:"Visible vs audible outputs",html:"<p>Why might an alarm system use both a light and a sound?</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> wire and control a buzzer as an audible output.</div>"},
+{type:"Vocabulary",title:"Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>Buzzer</b><br>An electronic component that produces sound.</div><div class='note-card vocab'><b>Audible Output</b><br>A system response you can hear.</div><div class='note-card vocab'><b>Alert</b><br>A signal designed to get attention.</div><div class='note-card vocab'><b>Trigger</b><br>An event that causes an output to activate.</div></div>"},
+{type:"Notes",title:"Alarm outputs",html:"<ul><li>Outputs communicate system state.</li><li>LED = visual signal.</li><li>Buzzer = audible signal.</li><li>A switch can determine when the alarm is active.</li></ul>"},
+{type:"Activity",title:"Make an Alarm",html:"<div class='note-card activity'>Build a switch-controlled buzzer. If materials allow, add an LED so the system produces both sound and light.</div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'>What is the input, what is the output, and what event triggers the alarm?</div>",timer:true}
+]},
+{date:"THU • NOV 19",topic:"Multiple Outputs",slides:[
+{type:"Bell Ringer",title:"Safe or alarm?",html:"<p>Design a two-state system: what should the green LED mean? What should the red LED mean?</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> combine multiple outputs to communicate different system states.</div>"},
+{type:"Vocabulary",title:"Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>Branch</b><br>A separate path in a circuit.</div><div class='note-card vocab'><b>Series</b><br>Components share one path.</div><div class='note-card vocab'><b>Parallel</b><br>Components have separate branches.</div><div class='note-card vocab'><b>System State</b><br>The current condition of the system.</div></div>"},
+{type:"Notes",title:"One system, several outputs",html:"<ul><li>Green can show SAFE.</li><li>Red + buzzer can show ALARM.</li><li>Separate branches allow different outputs to behave differently.</li></ul>"},
+{type:"Activity",title:"Safe / Alarm Build",html:"<div class='note-card activity'>Create a circuit with a green SAFE indicator and a red/buzzer ALARM state.</div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'>Why might a system use multiple outputs instead of only one?</div>",timer:true}
+]},
+{date:"FRI • NOV 20",topic:"Mini Security Alarm Build",slides:[
+{type:"Bell Ringer",title:"Design before building",html:"<p>List the minimum components your alarm needs to work.</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> design, build, test, and explain a simple security alarm circuit.</div>"},
+{type:"Vocabulary",title:"Review Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>Input</b></div><div class='note-card vocab'><b>Output</b></div><div class='note-card vocab'><b>Open/Closed Circuit</b></div><div class='note-card vocab'><b>Troubleshoot</b></div></div>"},
+{type:"Notes",title:"Build requirements",html:"<ul><li>Power source</li><li>Switch/input</li><li>LED</li><li>Buzzer</li><li>At least one resistor</li><li>Written explanation of how the alarm is stopped</li></ul>"},
+{type:"Activity",title:"Mini Build",html:"<div class='note-card activity'>Build and test your alarm. Another group should be able to identify the input, output, and control path.</div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'>What part of your build would you improve before the December project?</div>",timer:true}
+]},
+{date:"MON • NOV 23",topic:"Reading Circuit Diagrams",slides:[
+{type:"Bell Ringer",title:"Why use a diagram?",html:"<p>What is easier to understand: a pile of wires or a labeled circuit diagram? Why?</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> read and create a simple circuit diagram using standard symbols.</div>"},
+{type:"Vocabulary",title:"Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>Schematic</b><br>A symbolic drawing of a circuit.</div><div class='note-card vocab'><b>Symbol</b><br>A simplified picture representing a component.</div><div class='note-card vocab'><b>Connection</b><br>A point where parts of a circuit join.</div><div class='note-card vocab'><b>Diagram</b><br>A visual model of how a system is arranged.</div></div>"},
+{type:"Notes",title:"Read the system on paper",html:"<ul><li>Battery = power source</li><li>Line = wire/path</li><li>Resistor = current-limiting component</li><li>Switch = control</li><li>LED/buzzer = output</li></ul>"},
+{type:"Activity",title:"Physical → Diagram",html:"<div class='note-card activity'>Draw the circuit you built Friday. Your diagram must match the real connections.</div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'>How can a circuit diagram help someone troubleshoot a system they did not build?</div>",timer:true}
+]},
+{date:"TUE • NOV 24",topic:"Defusal Logic",slides:[
+{type:"Bell Ringer",title:"Trace before touching",html:"<p>If you had to stop a buzzer without turning off all power, what path would you look for?</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> trace a circuit and identify which connection controls the alarm output.</div>"},
+{type:"Vocabulary",title:"Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>Trace</b><br>Follow the path through a circuit.</div><div class='note-card vocab'><b>Decoy</b><br>A connection meant to distract from the correct one.</div><div class='note-card vocab'><b>Control Path</b><br>The path that determines whether an output activates.</div><div class='note-card vocab'><b>Defuse</b><br>Disable the alarm by interrupting the correct path.</div></div>"},
+{type:"Notes",title:"Defusal is troubleshooting",html:"<ul><li>Do not guess.</li><li>Start at the buzzer and trace backward.</li><li>Identify which connection actually feeds the alarm.</li><li>Changing the wrong connection may create a penalty.</li></ul>"},
+{type:"Activity",title:"Paper Defusal Challenge",html:"<div class='note-card activity'>Teams analyze sample diagrams and circle the connection they believe would disable the buzzer. Defend your choice before the answer is revealed.</div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'>What evidence should you use before moving a wire in the December project?</div>",timer:true}
+]},
+{date:"WED • NOV 25",topic:"December Project Preview",slides:[
+{type:"Bell Ringer",title:"Design a challenge",html:"<p>What would make a circuit challenging to defuse without making it impossible?</p>",timer:true},
+{type:"Objective",title:"Today’s Mission",html:"<div class='note-card'><b>I can</b> sketch a safe timed alarm concept that includes a real defuse path and decoy connections.</div>"},
+{type:"Vocabulary",title:"Project Vocabulary",html:"<div class='note-grid'><div class='note-card vocab'><b>Alarm Path</b></div><div class='note-card vocab'><b>Defuse Path</b></div><div class='note-card vocab'><b>Decoy</b></div><div class='note-card vocab'><b>Secret Key</b></div></div>"},
+{type:"Notes",title:"December rules",html:"<ul><li>6 teams.</li><li>No cutting wires.</li><li>At least one correct defuse connection.</li><li>At least two decoys.</li><li>Teams must understand and diagram their own circuit.</li><li>Teacher approval required before tournament use.</li></ul>"},
+{type:"Activity",title:"Concept Sketch",html:"<div class='note-card activity'>Sketch your first alarm idea: input, outputs, alarm path, defuse path, and decoy connections. Do not build yet.</div>"},
+{type:"Exit Ticket",title:"Exit Ticket",html:"<div class='note-card exit'>What part of your future alarm will another team have to reason through instead of simply guess?</div>",timer:true}
+]}
 ];
 
-let lessonIndex = 0;
-let seconds = 60;
-let remaining = 60;
-let timer = null;
-let running = false;
+let currentLesson = 0, currentSlide = 0;
+let lessonDefault = 180, lessonRemaining = 180, lessonInterval = null;
+let projectDefault = 60, projectRemaining = 60, projectInterval = null;
+let lessonGaryPlayed = false, projectGaryPlayed = false;
+const GARY_FALLBACK = 10.475;
 
-const display = document.querySelector("#timerDisplay");
-const timerSub = document.querySelector("#timerSub");
-const timerShell = document.querySelector("#timerShell");
-const statusText = document.querySelector("#systemStatus");
-const statusDot = document.querySelector("#statusDot");
-const flashLayer = document.querySelector("#flashLayer");
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const gary = $("#garyAudio"), factory = $("#factoryAudio");
 
-function renderLesson(){
-  const item = lessons[lessonIndex];
-  document.querySelector("#stepLabel").textContent = item.label;
-  document.querySelector("#lessonTitle").textContent = item.title;
-  document.querySelector("#lessonText").textContent = item.text;
+function show(id){
+  $$(".screen").forEach(x=>x.classList.remove("active"));
+  $(id).classList.add("active");
 }
+$("#openLessons").onclick=()=>show("#lessonMenu");
+$("#openProject").onclick=()=>show("#projectScreen");
+$$(".back-home").forEach(b=>b.onclick=()=>show("#homeScreen"));
+$("#backToDays").onclick=()=>{stopLessonTimer();show("#lessonMenu")};
 
-document.querySelector("#nextStep").addEventListener("click",()=>{
-  lessonIndex = (lessonIndex + 1) % lessons.length;
-  renderLesson();
-});
-document.querySelector("#prevStep").addEventListener("click",()=>{
-  lessonIndex = (lessonIndex - 1 + lessons.length) % lessons.length;
-  renderLesson();
-});
-
-document.querySelectorAll(".concept").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    const concept = btn.dataset.concept;
-    const messages = {
-      power:"POWER: The energy source that drives the circuit.",
-      path:"PATH: The conductive route current follows.",
-      output:"OUTPUT: The part that does something visible or audible, like an LED or buzzer.",
-      control:"CONTROL: A switch/button that opens or closes part of the circuit."
-    };
-    document.querySelector("#feedback").textContent = messages[concept];
-    quickShake();
-  });
+const dayGrid=$("#dayGrid");
+lessons.forEach((d,i)=>{
+  const b=document.createElement("button");
+  b.className="day-card";
+  b.innerHTML=`<span class="date">${d.date}</span><strong>${d.topic}</strong><small>Bell Ringer • Notes • Vocab • Activity • Exit Ticket</small>`;
+  b.onclick=()=>openLesson(i);
+  dayGrid.appendChild(b);
 });
 
-function formatTime(v){
-  const m = Math.floor(v/60).toString().padStart(2,"0");
-  const s = (v%60).toString().padStart(2,"0");
-  return `${m}:${s}`;
+function openLesson(i){currentLesson=i;currentSlide=0;show("#lessonDeck");renderSlide()}
+function renderSlide(){
+  const day=lessons[currentLesson], s=day.slides[currentSlide];
+  $("#deckDate").textContent=day.date; $("#deckTopic").textContent=day.topic;
+  $("#slideCount").textContent=`${currentSlide+1} / ${day.slides.length}`;
+  $("#slideBadge").textContent=s.type.toUpperCase(); $("#slideTitle").textContent=s.title; $("#slideBody").innerHTML=s.html;
+  $("#slideTimerArea").classList.toggle("hidden",!s.timer);
+  if(s.timer){resetLessonTimer(false)}
 }
-function updateTimer(){
-  display.textContent = formatTime(remaining);
-  timerShell.classList.toggle("critical", remaining <= 10 && remaining > 0);
-}
-function setStatus(text,color){
-  statusText.textContent = text;
-  statusDot.style.background = color;
-  statusDot.style.boxShadow = `0 0 0 4px ${color}33`;
-}
-function arm(){
-  clearInterval(timer);
-  running = true;
-  timerSub.textContent = "ARMED";
+$("#nextSlide").onclick=()=>{const max=lessons[currentLesson].slides.length-1;if(currentSlide<max){currentSlide++;renderSlide()}};
+$("#prevSlide").onclick=()=>{if(currentSlide>0){currentSlide--;renderSlide()}};
+
+function audioLen(){return Number.isFinite(gary.duration)&&gary.duration>0?gary.duration:GARY_FALLBACK}
+function fmt(v){const sec=Math.max(0,Math.ceil(v));return `${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`}
+function setStatus(txt,color){$("#systemStatus").textContent=txt;$("#statusDot").style.background=color}
+function flash(kind="red"){const f=$("#flashLayer");f.className="";void f.offsetWidth;f.classList.add(kind==="green"?"green":"flash");setTimeout(()=>f.className="",1100)}
+function shake(big=false){document.body.classList.add(big?"mega-shake":"shake");setTimeout(()=>document.body.classList.remove(big?"mega-shake":"shake"),big?1800:800)}
+function play(a){a.currentTime=0;a.play().catch(()=>{})}
+function detonate(){setStatus("ALARM TRIGGERED","#ff4d5e");flash();shake(true)}
+
+function runCountdown(kind){
+  const isLesson=kind==="lesson";
+  const getRem=()=>isLesson?lessonRemaining:projectRemaining;
+  const setRem=v=>{if(isLesson)lessonRemaining=v;else projectRemaining=v};
+  const getInt=()=>isLesson?lessonInterval:projectInterval;
+  const setInt=v=>{if(isLesson)lessonInterval=v;else projectInterval=v};
+  clearInterval(getInt());
+  if(isLesson) lessonGaryPlayed=false; else projectGaryPlayed=false;
+  const start=performance.now(), starting=getRem();
   setStatus("SYSTEM ARMED","#ff4d5e");
-  playAudio("audioBombStrapped");
-  flash("red");
-  timer = setInterval(()=>{
-    remaining -= 1;
-    updateTimer();
-    if(remaining <= 0){
-      clearInterval(timer);
-      running = false;
+  setInt(setInterval(()=>{
+    const elapsed=(performance.now()-start)/1000;
+    const rem=Math.max(0,starting-elapsed); setRem(rem);
+    if(isLesson) $("#lessonTimerDisplay").textContent=fmt(rem); else $("#projectTimerDisplay").textContent=fmt(rem);
+    const played=isLesson?lessonGaryPlayed:projectGaryPlayed;
+    if(!played && rem<=audioLen() && rem>0){
+      play(gary);
+      if(isLesson) lessonGaryPlayed=true; else projectGaryPlayed=true;
+    }
+    if(rem<=0){
+      clearInterval(getInt()); setInt(null);
+      if(isLesson) $("#lessonTimerDisplay").textContent="00:00"; else $("#projectTimerDisplay").textContent="00:00";
       detonate();
     }
-  },1000);
+  },100));
 }
-function pause(){
-  if(!running) return;
-  clearInterval(timer);
-  running = false;
-  timerSub.textContent = "PAUSED";
-  setStatus("SYSTEM PAUSED","#ff9f43");
-}
-function reset(){
-  clearInterval(timer);
-  running = false;
-  remaining = seconds;
-  updateTimer();
-  timerSub.textContent = "STANDBY";
-  timerShell.classList.remove("critical");
-  setStatus("SYSTEM SAFE","#3ac47d");
-}
-function defuse(){
-  clearInterval(timer);
-  running = false;
-  timerSub.textContent = "DEFUSED";
-  setStatus("DEVICE DEFUSED","#3ac47d");
-  flash("green");
-  document.body.classList.add("shake");
-  setTimeout(()=>document.body.classList.remove("shake"),800);
-}
-function detonate(){
-  timerSub.textContent = "DETONATED";
-  setStatus("ALARM TRIGGERED","#ff4d5e");
-  document.body.classList.add("mega-shake");
-  flash("red");
-  setTimeout(()=>document.body.classList.remove("mega-shake"),1900);
-}
-function wrongWire(){
-  if(remaining > 5) remaining = Math.max(0,remaining-5);
-  updateTimer();
-  timerSub.textContent = "-5 SEC PENALTY";
-  document.body.classList.add("shake");
-  flash("red");
-  setTimeout(()=>{
-    document.body.classList.remove("shake");
-    if(running) timerSub.textContent = "ARMED";
-  },900);
-}
-function quickShake(){
-  document.body.classList.add("shake");
-  setTimeout(()=>document.body.classList.remove("shake"),700);
-}
-function flash(kind){
-  flashLayer.className = "";
-  void flashLayer.offsetWidth;
-  flashLayer.classList.add(kind==="green"?"green-flash":"flash");
-  setTimeout(()=>flashLayer.className="",1200);
-}
-function playAudio(id){
-  const a = document.getElementById(id);
-  if(!a) return;
-  a.currentTime = 0;
-  a.play().catch(()=>{});
-}
+function stopLessonTimer(){if(lessonInterval)clearInterval(lessonInterval);lessonInterval=null}
+function resetLessonTimer(update=true){stopLessonTimer();gary.pause();gary.currentTime=0;lessonRemaining=lessonDefault;lessonGaryPlayed=false;if(update)$("#lessonTimerDisplay").textContent=fmt(lessonRemaining);else $("#lessonTimerDisplay").textContent=fmt(lessonRemaining);setStatus("SYSTEM SAFE","#42cc83")}
+$$("[data-time]").forEach(b=>b.onclick=()=>{lessonDefault=+b.dataset.time;resetLessonTimer()});
+$("#lessonTimerStart").onclick=()=>runCountdown("lesson");
+$("#lessonTimerReset").onclick=()=>resetLessonTimer();
 
-document.querySelectorAll("[data-seconds]").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    seconds = Number(btn.dataset.seconds);
-    remaining = seconds;
-    updateTimer();
-    timerSub.textContent = "STANDBY";
-  });
-});
-document.querySelector("#armBtn").addEventListener("click",arm);
-document.querySelector("#pauseBtn").addEventListener("click",pause);
-document.querySelector("#resetBtn").addEventListener("click",reset);
-document.querySelector("#defuseBtn").addEventListener("click",defuse);
-document.querySelector("#detonateBtn").addEventListener("click",detonate);
-document.querySelector("#wrongWire").addEventListener("click",wrongWire);
-document.querySelector("#bombStrapped").addEventListener("click",()=>{playAudio("audioBombStrapped");quickShake();});
-document.querySelector("#bombFactory").addEventListener("click",()=>{playAudio("audioBombFactory");flash("red");});
+function resetProject(){if(projectInterval)clearInterval(projectInterval);projectInterval=null;gary.pause();gary.currentTime=0;projectRemaining=projectDefault;projectGaryPlayed=false;$("#projectTimerDisplay").textContent=fmt(projectRemaining);setStatus("SYSTEM SAFE","#42cc83")}
+$$("[data-project-time]").forEach(b=>b.onclick=()=>{projectDefault=+b.dataset.projectTime;resetProject()});
+$("#projectArm").onclick=()=>runCountdown("project");
+$("#projectWrong").onclick=()=>{projectRemaining=Math.max(0,projectRemaining-5);$("#projectTimerDisplay").textContent=fmt(projectRemaining);flash();shake()};
+$("#projectDefuse").onclick=()=>{if(projectInterval)clearInterval(projectInterval);projectInterval=null;gary.pause();gary.currentTime=0;setStatus("DEVICE DEFUSED","#42cc83");flash("green");shake()};
+$("#projectReset").onclick=resetProject;
+$("#playFactory").onclick=()=>{play(factory);shake()};
+$("#manualDetonate").onclick=detonate;
 
-document.querySelectorAll("#answerGrid button").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    const correct = btn.dataset.correct === "true";
-    const feedback = document.querySelector("#feedback");
-    if(correct){
-      feedback.textContent = "CORRECT — troubleshoot the system logically before changing parts.";
-      feedback.style.background = "#d7f7e5";
-      flash("green");
-    }else{
-      feedback.textContent = "NOPE — that is not evidence-based troubleshooting.";
-      feedback.style.background = "#ffd9de";
-      wrongWire();
-    }
-  });
+document.addEventListener("keydown",e=>{
+  const k=e.key.toLowerCase();
+  if(!$("#projectScreen").classList.contains("active"))return;
+  if(k==="a")runCountdown("project");
+  if(k==="w")$("#projectWrong").click();
+  if(k==="d")$("#projectDefuse").click();
+  if(k==="r")resetProject();
+  if(k==="2")$("#playFactory").click();
 });
 
-document.addEventListener("keydown",(e)=>{
-  if(e.target.tagName === "INPUT") return;
-  const k = e.key.toLowerCase();
-  if(k==="a") arm();
-  if(k==="p") pause();
-  if(k==="r") reset();
-  if(k==="d") defuse();
-  if(k==="x") detonate();
-  if(k==="w") wrongWire();
-  if(k==="1") playAudio("audioBombStrapped");
-  if(k==="2") playAudio("audioBombFactory");
-});
-
-renderLesson();
-updateTimer();
+gary.addEventListener("loadedmetadata",()=>console.log("Gary clip duration:",gary.duration));
+resetLessonTimer(); resetProject();
