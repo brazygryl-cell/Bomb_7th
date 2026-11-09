@@ -219,25 +219,54 @@ function ensureAudio(){
     if(audioCtx.state === "suspended") audioCtx.resume();
   }catch(e){}
 }
-function tone(freq=440,dur=.08,type="sine",vol=.025,delay=0){
+function tone(freq=440,dur=.1,type="square",vol=.08,delay=0){
   if(!soundsEnabled) return;
   try{
     ensureAudio();
     if(!audioCtx) return;
     const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-    o.type=type; o.frequency.value=freq; g.gain.value=vol;
-    o.connect(g); g.connect(audioCtx.destination);
+    o.type=type;
+    o.frequency.value=freq;
+    g.gain.value=vol;
+    o.connect(g);
+    g.connect(audioCtx.destination);
     const t=audioCtx.currentTime+delay;
     g.gain.setValueAtTime(vol,t);
     g.gain.exponentialRampToValueAtTime(.001,t+dur);
-    o.start(t); o.stop(t+dur);
+    o.start(t);
+    o.stop(t+dur);
   }catch(e){}
 }
+
+function alarmBurst(level="nav"){
+  if(!soundsEnabled) return;
+  if(level==="nav"){
+    tone(820,.09,"square",.075,0);
+    tone(620,.10,"square",.07,.10);
+  }else if(level==="warning"){
+    tone(980,.11,"square",.095,0);
+    tone(740,.11,"square",.095,.13);
+    tone(980,.11,"square",.095,.26);
+  }else if(level==="fault"){
+    tone(260,.16,"sawtooth",.11,0);
+    tone(180,.20,"sawtooth",.11,.15);
+  }else if(level==="success"){
+    tone(520,.09,"square",.075,0);
+    tone(700,.09,"square",.075,.1);
+    tone(900,.14,"square",.08,.2);
+  }else if(level==="siren"){
+    const seq=[760,900,760,900,760,900];
+    seq.forEach((f,i)=>tone(f,.13,"square",.105,i*.12));
+  }
+}
+
 function uiSound(kind){
-  if(kind==="next"){ tone(420,.06); tone(650,.07,"sine",.02,.07); }
-  else if(kind==="zap"){ tone(900,.04,"square",.03); tone(300,.12,"sawtooth",.025,.04); }
-  else if(kind==="success"){ tone(523,.08); tone(659,.08,"sine",.025,.09); tone(784,.12,"sine",.025,.18); }
-  else tone(700,.05,"triangle",.02);
+  if(kind==="next" || kind==="click") alarmBurst("nav");
+  else if(kind==="zap") alarmBurst("warning");
+  else if(kind==="wrong") alarmBurst("fault");
+  else if(kind==="success") alarmBurst("success");
+  else if(kind==="alarm") alarmBurst("siren");
+  else alarmBurst("nav");
 }
 
 function show(id){
@@ -291,7 +320,7 @@ function sparkBurst(count=6){
 function pulseCircuit(){
   const stage=$("#slideStage");
   if(!stage) return;
-  uiSound("zap");
+  uiSound("warning");
   stage.classList.remove("pulse-circuit");
   void stage.offsetWidth;
   stage.classList.add("pulse-circuit");
@@ -413,10 +442,13 @@ function togglePresentationMode(){
 }
 
 function init(){
+  const g=$("#garyAudio"), f=$("#factoryAudio");
+  if(g) g.volume=1;
+  if(f) f.volume=1;
   buildDayMenu();
 
   const openLessons=$("#openLessons");
-  if(openLessons) openLessons.addEventListener("click",()=>{ uiSound("zap"); show("#lessonMenu"); });
+  if(openLessons) openLessons.addEventListener("click",()=>{ uiSound("warning"); show("#lessonMenu"); });
 
   const openProject=$("#openProject");
   if(openProject) openProject.addEventListener("click",()=>show("#projectScreen"));
