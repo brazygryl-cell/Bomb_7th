@@ -414,3 +414,107 @@ body.presentation-mode #fullscreenBtn{background:#0b1720;color:#7df4ff;border-co
   body.presentation-mode .note-card{font-size:clamp(.85rem,1.65vh,1rem)!important}
   body.presentation-mode .slide-stage h2{font-size:clamp(1.75rem,3.6vh,2.8rem)!important}
 }
+
+/* ---- V9 FULL APP PRESENTATION MODE ---- */
+body.app-presentation{overflow:hidden}
+body.app-presentation .topbar{
+  min-height:64px;
+  padding:10px 18px;
+}
+body.app-presentation main{
+  width:100vw!important;
+  height:calc(100vh - 64px)!important;
+  margin:0!important;
+  padding:10px 14px 14px!important;
+  max-width:none!important;
+  overflow:hidden!important;
+}
+body.app-presentation .screen.active{
+  height:100%;
+  overflow:hidden!important;
+}
+body.app-presentation #homeScreen{
+  display:flex!important;
+  flex-direction:column;
+  justify-content:center;
+  gap:14px;
+}
+body.app-presentation #homeScreen .hero{
+  margin:0 0 10px!important;
+  padding:24px 30px!important;
+}
+body.app-presentation #homeScreen .hero h2{
+  font-size:clamp(2.7rem,7vh,5.5rem)!important;
+  margin:8px 0 10px!important;
+}
+body.app-presentation #homeScreen .mode-grid{
+  flex:1;
+  min-height:0;
+}
+body.app-presentation #homeScreen .mode-card{
+  min-height:0!important;
+  height:100%;
+}
+body.app-presentation #lessonMenu{
+  display:flex!important;
+  flex-direction:column;
+}
+body.app-presentation #lessonMenu .screen-title{
+  flex:0 0 auto;
+  margin-bottom:10px;
+}
+body.app-presentation #lessonMenu .day-grid{
+  flex:1 1 auto;
+  min-height:0;
+  overflow:hidden;
+  grid-template-columns:repeat(4,1fr)!important;
+  grid-auto-rows:1fr;
+}
+body.app-presentation #lessonMenu .day-card{
+  min-height:0!important;
+  padding:13px 14px!important;
+}
+body.app-presentation #lessonMenu .day-card strong{
+  font-size:clamp(1rem,1.7vh,1.25rem)!important;
+}
+body.app-presentation #lessonMenu .day-card small{
+  font-size:clamp(.72rem,1.2vh,.9rem)!important;
+}
+body.app-presentation #projectScreen{
+  overflow:auto!important;
+}
+body.app-presentation #lessonDeck{
+  height:100%!important;
+  display:flex!important;
+  flex-direction:column;
+  padding:0!important;
+}
+body.app-presentation #lessonDeck .deck-top{
+  margin-bottom:6px!important;
+}
+body.app-presentation #lessonDeck .circuit-progress-wrap{
+  margin-bottom:6px!important;
+}
+body.app-presentation #lessonDeck .slide-stage{
+  flex:1 1 auto;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+body.app-presentation #lessonDeck .deck-nav{
+  flex:0 0 auto;
+}
+body.app-presentation #globalFullscreenBtn{
+  background:#0b1720!important;
+  color:#7df4ff!important;
+  border-color:#00d9ff!important;
+}
+@media(max-width:1100px){
+  body.app-presentation #lessonMenu .day-grid{grid-template-columns:repeat(3,1fr)!important}
+}
+@media(max-height:760px){
+  body.app-presentation .topbar{min-height:54px;padding:7px 14px}
+  body.app-presentation main{height:calc(100vh - 54px)!important;padding:7px 10px 10px!important}
+  body.app-presentation #homeScreen .hero{padding:16px 22px!important}
+  body.app-presentation #homeScreen .hero p{margin:.4rem 0}
+  body.app-presentation #lessonMenu .day-card{padding:9px 10px!important}
+}
