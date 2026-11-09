@@ -293,1001 +293,120 @@ body:after{
 .slide-stage.notes-live .node-dot{animation-duration:.9s}
 .slide-stage.exit-live .ambient-circuit{filter:hue-rotate(70deg)}
 
-/* ---- V8 PRESENTATION / FULLSCREEN MODE ---- */
-body.presentation-mode{overflow:hidden}
-body.presentation-mode .topbar,
-body.presentation-mode #homeScreen,
-body.presentation-mode #lessonMenu,
-body.presentation-mode #projectScreen{display:none!important}
-body.presentation-mode main{
-  width:100vw!important;
-  height:100vh!important;
-  margin:0!important;
-  padding:0!important;
-  max-width:none!important;
-}
-body.presentation-mode #lessonDeck{
-  display:flex!important;
-  flex-direction:column;
-  width:100vw;
-  height:100vh;
-  padding:10px 14px 12px;
-  background:#03070b;
-  overflow:hidden;
-}
-body.presentation-mode #lessonDeck .deck-top{
-  flex:0 0 auto;
-  margin-bottom:8px;
-  padding:7px 10px;
-}
-body.presentation-mode #lessonDeck .circuit-progress-wrap{
-  flex:0 0 auto;
-  margin:0 0 8px;
-  padding:7px 12px;
-}
-body.presentation-mode #lessonDeck .slide-stage{
-  flex:1 1 auto;
-  min-height:0!important;
-  height:auto!important;
-  overflow:hidden!important;
-  padding:clamp(18px,2vh,30px) clamp(24px,2.8vw,42px)!important;
-  border-width:3px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-}
-body.presentation-mode #lessonDeck .slide-stage h2{
-  font-size:clamp(2rem,4.2vh,3.5rem)!important;
-  margin:10px 0 12px!important;
-  line-height:1!important;
-}
-body.presentation-mode #slideBody{
-  font-size:clamp(1rem,2.1vh,1.28rem)!important;
-  line-height:1.35!important;
-  overflow:hidden;
-}
-body.presentation-mode #slideBody p,
-body.presentation-mode #slideBody li{
-  margin-top:5px!important;
-  margin-bottom:5px!important;
-}
-body.presentation-mode .note-grid{
-  gap:10px!important;
-  grid-template-columns:1fr 1fr!important;
-}
-body.presentation-mode .note-card{
-  padding:10px 12px!important;
-  font-size:clamp(.95rem,1.85vh,1.15rem)!important;
-  line-height:1.25!important;
-}
-body.presentation-mode .copy-block{
-  margin-top:8px!important;
-  padding:10px 14px!important;
-}
-body.presentation-mode .fun-tip{
-  margin-top:8px!important;
-  padding:9px 12px!important;
-}
-body.presentation-mode .timer-area{
-  margin-top:10px!important;
-  padding:10px!important;
-}
-body.presentation-mode .timer-display{
-  font-size:clamp(3rem,8vh,6rem)!important;
-}
-body.presentation-mode .timer-controls{
-  margin-top:6px!important;
-  gap:6px!important;
-}
-body.presentation-mode .timer-controls button{
-  padding:7px 10px!important;
-  font-size:.9rem!important;
-}
-body.presentation-mode .deck-nav{
-  flex:0 0 auto;
-  margin-top:8px!important;
-}
-body.presentation-mode .deck-nav button{
-  padding:8px 14px!important;
-}
-body.presentation-mode .stage-callout{
-  bottom:10px!important;
-  right:14px!important;
-  font-size:.65rem!important;
-  padding:6px 9px!important;
-}
-body.presentation-mode .slide-sticker{
-  font-size:2.6rem!important;
-  right:18px!important;
-  top:15px!important;
-}
-body.presentation-mode .circuit-progress .node{
-  width:32px;height:32px;font-size:.9rem
-}
-body.presentation-mode .circuit-progress .trace{height:5px}
-body.presentation-mode .deck-title strong{font-size:1.05rem}
-body.presentation-mode .deck-title span{font-size:.72rem}
-body.presentation-mode .slide-count{font-size:.85rem}
-body.presentation-mode #fullscreenBtn{background:#0b1720;color:#7df4ff;border-color:#00d9ff}
-@media(max-height:750px){
-  body.presentation-mode #slideBody{font-size:clamp(.88rem,1.8vh,1.05rem)!important}
-  body.presentation-mode .note-card{font-size:clamp(.85rem,1.65vh,1rem)!important}
-  body.presentation-mode .slide-stage h2{font-size:clamp(1.75rem,3.6vh,2.8rem)!important}
-}
-
-/* ---- V9 FULL APP PRESENTATION MODE ---- */
-body.app-presentation{overflow:hidden}
-body.app-presentation .topbar{
-  min-height:64px;
-  padding:10px 18px;
-}
-body.app-presentation main{
-  width:100vw!important;
-  height:calc(100vh - 64px)!important;
-  margin:0!important;
-  padding:10px 14px 14px!important;
-  max-width:none!important;
-  overflow:hidden!important;
-}
-body.app-presentation .screen.active{
-  height:100%;
-  overflow:hidden!important;
-}
-body.app-presentation #homeScreen{
-  display:flex!important;
-  flex-direction:column;
-  justify-content:center;
-  gap:14px;
-}
-body.app-presentation #homeScreen .hero{
-  margin:0 0 10px!important;
-  padding:24px 30px!important;
-}
-body.app-presentation #homeScreen .hero h2{
-  font-size:clamp(2.7rem,7vh,5.5rem)!important;
-  margin:8px 0 10px!important;
-}
-body.app-presentation #homeScreen .mode-grid{
-  flex:1;
-  min-height:0;
-}
-body.app-presentation #homeScreen .mode-card{
-  min-height:0!important;
-  height:100%;
-}
-body.app-presentation #lessonMenu{
-  display:flex!important;
-  flex-direction:column;
-}
-body.app-presentation #lessonMenu .screen-title{
-  flex:0 0 auto;
-  margin-bottom:10px;
-}
-body.app-presentation #lessonMenu .day-grid{
-  flex:1 1 auto;
-  min-height:0;
-  overflow:hidden;
-  grid-template-columns:repeat(4,1fr)!important;
-  grid-auto-rows:1fr;
-}
-body.app-presentation #lessonMenu .day-card{
-  min-height:0!important;
-  padding:13px 14px!important;
-}
-body.app-presentation #lessonMenu .day-card strong{
-  font-size:clamp(1rem,1.7vh,1.25rem)!important;
-}
-body.app-presentation #lessonMenu .day-card small{
-  font-size:clamp(.72rem,1.2vh,.9rem)!important;
-}
-body.app-presentation #projectScreen{
-  overflow:auto!important;
-}
-body.app-presentation #lessonDeck{
-  height:100%!important;
-  display:flex!important;
-  flex-direction:column;
-  padding:0!important;
-}
-body.app-presentation #lessonDeck .deck-top{
-  margin-bottom:6px!important;
-}
-body.app-presentation #lessonDeck .circuit-progress-wrap{
-  margin-bottom:6px!important;
-}
-body.app-presentation #lessonDeck .slide-stage{
-  flex:1 1 auto;
-  min-height:0!important;
-  overflow:hidden!important;
-}
-body.app-presentation #lessonDeck .deck-nav{
-  flex:0 0 auto;
-}
-body.app-presentation #globalFullscreenBtn{
-  background:#0b1720!important;
-  color:#7df4ff!important;
-  border-color:#00d9ff!important;
-}
-@media(max-width:1100px){
-  body.app-presentation #lessonMenu .day-grid{grid-template-columns:repeat(3,1fr)!important}
-}
-@media(max-height:760px){
-  body.app-presentation .topbar{min-height:54px;padding:7px 14px}
-  body.app-presentation main{height:calc(100vh - 54px)!important;padding:7px 10px 10px!important}
-  body.app-presentation #homeScreen .hero{padding:16px 22px!important}
-  body.app-presentation #homeScreen .hero p{margin:.4rem 0}
-  body.app-presentation #lessonMenu .day-card{padding:9px 10px!important}
-}
-
-/* ---- V11 PRESENTATION FORMAT FIX ---- */
+/* ---- CLEAN PRESENTATION MODE ---- */
 body.app-presentation{
-  overflow:hidden!important;
-  width:100vw;
-  height:100vh;
+  margin:0;
+  min-height:100vh;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  background:#03070b;
 }
+
 body.app-presentation .topbar{
-  display:flex!important;
-  height:72px!important;
-  min-height:72px!important;
-  padding:10px 18px!important;
-  margin:0!important;
-  flex:0 0 72px!important;
-}
-body.app-presentation .topbar h1{
-  font-size:clamp(1.1rem,2.2vw,1.8rem)!important;
-}
-body.app-presentation .eyebrow{
-  font-size:.62rem!important;
-  margin-bottom:2px!important;
-}
-body.app-presentation .build-badge{
-  font-size:.58rem!important;
-  padding:4px 7px!important;
-}
-body.app-presentation .top-actions{
-  gap:7px!important;
-}
-body.app-presentation .top-actions button,
-body.app-presentation .status-wrap{
-  padding:7px 10px!important;
-  font-size:.72rem!important;
-}
-body.app-presentation main{
-  position:relative;
-  width:100vw!important;
-  height:calc(100vh - 72px)!important;
-  max-width:none!important;
-  margin:0!important;
-  padding:12px 16px 14px!important;
-  overflow:hidden!important;
-}
-body.app-presentation .screen{
-  display:none!important;
-}
-body.app-presentation .screen.active{
-  display:block!important;
-  width:100%!important;
-  height:100%!important;
-  min-height:0!important;
-  overflow:hidden!important;
+  display:none !important;
 }
 
-/* HOME */
-body.app-presentation #homeScreen.active{
-  display:grid!important;
-  grid-template-rows:auto auto 1fr;
-  gap:10px!important;
-  align-content:stretch;
-}
-body.app-presentation #homeScreen .hero{
-  margin:0!important;
-  padding:18px 24px!important;
-  min-height:0!important;
-}
-body.app-presentation #homeScreen .hero h2{
-  font-size:clamp(2.2rem,5.5vh,4.6rem)!important;
-  line-height:.95!important;
-  margin:6px 0 8px!important;
-}
-body.app-presentation #homeScreen .hero p{
-  margin:4px 0!important;
-  font-size:clamp(.82rem,1.5vh,1rem)!important;
-}
-body.app-presentation .system-strip{
-  margin:0!important;
-}
-body.app-presentation .system-strip span{
-  padding:7px 10px!important;
-  font-size:.64rem!important;
-}
-body.app-presentation #homeScreen .mode-grid{
-  min-height:0!important;
-  height:100%!important;
-  gap:12px!important;
-}
-body.app-presentation #homeScreen .mode-card{
-  min-height:0!important;
-  height:100%!important;
-  padding:18px 20px!important;
-  justify-content:center!important;
-}
-body.app-presentation #homeScreen .mode-icon{
-  font-size:2.5rem!important;
-}
-body.app-presentation #homeScreen .mode-card strong{
-  font-size:clamp(1.25rem,2.3vw,1.8rem)!important;
-  margin:6px 0!important;
-}
-body.app-presentation #homeScreen .mode-card small{
-  font-size:clamp(.72rem,1.25vw,.9rem)!important;
-}
-
-/* LESSON MENU */
-body.app-presentation #lessonMenu.active{
-  display:flex!important;
-  flex-direction:column!important;
-  gap:8px!important;
-}
-body.app-presentation #lessonMenu .screen-title{
-  margin:0!important;
-  padding-bottom:8px!important;
-  flex:0 0 auto!important;
-}
-body.app-presentation #lessonMenu .screen-title h2{
-  font-size:1.6rem!important;
-}
-body.app-presentation #lessonMenu .day-grid{
-  display:grid!important;
-  flex:1 1 auto!important;
-  min-height:0!important;
-  height:100%!important;
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  grid-template-rows:repeat(3,minmax(0,1fr))!important;
-  gap:9px!important;
-  overflow:hidden!important;
-}
-body.app-presentation #lessonMenu .day-card{
-  min-height:0!important;
-  height:auto!important;
-  padding:11px 12px!important;
-  overflow:hidden!important;
-}
-body.app-presentation #lessonMenu .day-card .date{
-  font-size:.62rem!important;
-}
-body.app-presentation #lessonMenu .day-card strong{
-  font-size:clamp(.92rem,1.55vh,1.15rem)!important;
-  line-height:1.05!important;
-  margin:5px 0!important;
-}
-body.app-presentation #lessonMenu .day-card small{
-  display:block!important;
-  font-size:clamp(.62rem,1.05vh,.76rem)!important;
-  line-height:1.15!important;
-}
-
-/* LESSON DECK */
-body.app-presentation #lessonDeck.active{
-  display:grid!important;
-  grid-template-rows:auto auto minmax(0,1fr) auto!important;
-  gap:7px!important;
-}
-body.app-presentation #lessonDeck .deck-top{
-  margin:0!important;
-  padding:7px 10px!important;
-  min-height:0!important;
-}
-body.app-presentation #lessonDeck .deck-top button{
-  padding:6px 9px!important;
-  font-size:.72rem!important;
-}
-body.app-presentation #lessonDeck .circuit-progress-wrap{
-  margin:0!important;
-  padding:6px 10px!important;
-}
-body.app-presentation #lessonDeck .circuit-progress-label{
-  margin-bottom:4px!important;
-  font-size:.58rem!important;
-}
-body.app-presentation #lessonDeck .circuit-progress .node{
-  width:28px!important;height:28px!important;font-size:.78rem!important;
-}
-body.app-presentation #lessonDeck .circuit-progress .trace{
-  height:4px!important;
-}
-body.app-presentation #lessonDeck .slide-stage{
-  min-height:0!important;
-  height:100%!important;
-  overflow:hidden!important;
-  padding:18px 24px!important;
-  border-width:3px!important;
-}
-body.app-presentation #lessonDeck .slide-stage h2{
-  font-size:clamp(1.8rem,3.8vh,3rem)!important;
-  line-height:1!important;
-  margin:8px 0 10px!important;
-  padding-right:60px!important;
-}
-body.app-presentation #slideBody{
-  font-size:clamp(.9rem,1.72vh,1.13rem)!important;
-  line-height:1.3!important;
-  overflow:hidden!important;
-}
-body.app-presentation #slideBody p,
-body.app-presentation #slideBody li{
-  margin:4px 0!important;
-}
-body.app-presentation .note-grid{
-  grid-template-columns:1fr 1fr!important;
-  gap:8px!important;
-}
-body.app-presentation .note-card{
-  padding:9px 11px!important;
-  font-size:clamp(.84rem,1.5vh,1rem)!important;
-  line-height:1.22!important;
-}
-body.app-presentation .copy-block{
-  margin-top:7px!important;
-  padding:8px 11px!important;
-}
-body.app-presentation .copy-block .copy-label{
-  margin-bottom:4px!important;
-  padding:3px 7px!important;
-  font-size:.58rem!important;
-}
-body.app-presentation .copy-block ul{
-  margin:2px 0!important;
-}
-body.app-presentation .fun-tip{
-  margin-top:7px!important;
-  padding:7px 10px!important;
-  font-size:clamp(.75rem,1.35vh,.9rem)!important;
-}
-body.app-presentation .slide-sticker{
-  font-size:2.2rem!important;
-  right:14px!important;
-  top:11px!important;
-}
-body.app-presentation .stage-callout{
-  font-size:.56rem!important;
-  bottom:8px!important;
-  right:10px!important;
-  padding:5px 7px!important;
-}
-body.app-presentation .timer-area{
-  margin-top:8px!important;
-  padding:8px!important;
-}
-body.app-presentation .timer-display{
-  font-size:clamp(2.8rem,7vh,5rem)!important;
-  line-height:.95!important;
-}
-body.app-presentation .timer-controls{
-  margin-top:5px!important;
-  gap:5px!important;
-}
-body.app-presentation .timer-controls button{
-  padding:5px 8px!important;
-  font-size:.72rem!important;
-}
-body.app-presentation #lessonDeck .deck-nav{
-  margin:0!important;
-}
-body.app-presentation #lessonDeck .deck-nav button{
-  padding:7px 11px!important;
-  font-size:.78rem!important;
-}
-
-/* PROJECT remains viewable without affecting lesson formatting */
-body.app-presentation #projectScreen.active{
-  overflow:auto!important;
-}
-
-/* small laptop / projector heights */
-@media(max-height:720px){
-  body.app-presentation .topbar{height:60px!important;min-height:60px!important;flex-basis:60px!important}
-  body.app-presentation main{height:calc(100vh - 60px)!important;padding:8px 10px 10px!important}
-  body.app-presentation #homeScreen .hero{padding:12px 18px!important}
-  body.app-presentation #homeScreen .hero h2{font-size:clamp(1.9rem,5vh,3.6rem)!important}
-  body.app-presentation #lessonMenu .day-grid{gap:6px!important}
-  body.app-presentation #lessonMenu .day-card{padding:8px 9px!important}
-  body.app-presentation #lessonDeck .slide-stage{padding:12px 18px!important}
-  body.app-presentation #slideBody{font-size:clamp(.78rem,1.5vh,.94rem)!important}
-  body.app-presentation .note-card{font-size:clamp(.74rem,1.35vh,.88rem)!important}
-}
-
-/* ---- V12 CLEAN PRESENTATION: authoritative overrides ---- */
-#presentationExitBtn{
-  display:none;
+body.app-presentation #presentationExitBtn{
+  display:block !important;
   position:fixed;
   top:12px;
-  right:14px;
-  z-index:5000;
+  right:12px;
+  z-index:10000;
   border:1px solid #30dff6;
-  background:rgba(3,12,18,.94);
+  background:rgba(3,12,18,.96);
   color:#bffaff;
   border-radius:6px;
   padding:8px 12px;
-  font:800 .72rem "Courier New",monospace;
-  letter-spacing:.6px;
-  box-shadow:0 0 16px rgba(0,217,255,.25);
+  font:800 .72rem "Courier New", monospace;
+  letter-spacing:.5px;
+  box-shadow:0 0 14px rgba(0,217,255,.28);
 }
-body.app-presentation #presentationExitBtn{display:block!important}
-body.app-presentation .topbar{display:none!important}
-body.app-presentation{
-  width:100vw!important;
-  height:100vh!important;
-  margin:0!important;
-  padding:0!important;
-  overflow:hidden!important;
-  background:#03070b!important;
-}
+
 body.app-presentation main{
-  width:100vw!important;
-  height:100vh!important;
-  margin:0!important;
-  padding:12px!important;
-  overflow:hidden!important;
-  max-width:none!important;
-}
-body.app-presentation .screen{display:none!important}
-body.app-presentation .screen.active{
-  width:100%!important;
-  height:100%!important;
-  min-height:0!important;
-  max-height:100%!important;
-  overflow:hidden!important;
+  width:100%;
+  max-width:none;
+  min-height:100vh;
+  margin:0;
+  padding:18px;
+  overflow:visible;
 }
 
-/* Home fills screen cleanly */
-body.app-presentation #homeScreen.active{
-  display:grid!important;
-  grid-template-rows:minmax(0,1.15fr) auto minmax(0,.85fr)!important;
-  gap:10px!important;
-}
-body.app-presentation #homeScreen .hero{
-  margin:0!important;
-  padding:clamp(20px,3vh,34px) clamp(24px,3vw,44px)!important;
-  min-height:0!important;
-  overflow:hidden!important;
-}
-body.app-presentation #homeScreen .hero h2{
-  font-size:clamp(2.4rem,7vh,5.8rem)!important;
-  line-height:.9!important;
-  margin:6px 0 10px!important;
-}
-body.app-presentation #homeScreen .hero p{
-  margin:4px 0!important;
-  font-size:clamp(.8rem,1.6vh,1.05rem)!important;
-}
-body.app-presentation #homeScreen .system-strip{
-  margin:0!important;
-}
-body.app-presentation #homeScreen .mode-grid{
-  min-height:0!important;
-  height:100%!important;
-  gap:10px!important;
-}
-body.app-presentation #homeScreen .mode-card{
-  min-height:0!important;
-  height:100%!important;
-  padding:16px 20px!important;
-}
-body.app-presentation #homeScreen .mode-icon{font-size:2.2rem!important}
-body.app-presentation #homeScreen .mode-card strong{
-  font-size:clamp(1.05rem,2vw,1.6rem)!important;
-  margin:5px 0!important;
-}
-body.app-presentation #homeScreen .mode-card small{
-  font-size:clamp(.68rem,1.15vw,.88rem)!important;
-}
-
-/* Day menu */
-body.app-presentation #lessonMenu.active{
-  display:grid!important;
-  grid-template-rows:auto minmax(0,1fr)!important;
-  gap:8px!important;
-}
-body.app-presentation #lessonMenu .screen-title{
-  margin:0!important;
-  padding:6px 0 8px!important;
-}
-body.app-presentation #lessonMenu .day-grid{
-  display:grid!important;
-  min-height:0!important;
-  height:100%!important;
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  grid-template-rows:repeat(3,minmax(0,1fr))!important;
-  gap:8px!important;
-  overflow:hidden!important;
-}
-body.app-presentation #lessonMenu .day-card{
-  min-width:0!important;
-  min-height:0!important;
-  height:auto!important;
-  padding:10px 11px!important;
-  overflow:hidden!important;
-}
-body.app-presentation #lessonMenu .day-card strong{
-  font-size:clamp(.88rem,1.6vh,1.12rem)!important;
-  line-height:1.05!important;
-  margin:4px 0!important;
-}
-body.app-presentation #lessonMenu .day-card small{
-  font-size:clamp(.58rem,1.02vh,.75rem)!important;
-  line-height:1.1!important;
-}
-
-/* Lesson deck */
-body.app-presentation #lessonDeck.active{
-  display:grid!important;
-  grid-template-rows:auto auto minmax(0,1fr) auto!important;
-  gap:6px!important;
-}
-body.app-presentation #lessonDeck .deck-top{
-  margin:0!important;
-  padding:6px 8px!important;
-}
-body.app-presentation #lessonDeck .deck-top button{
-  padding:5px 8px!important;
-  font-size:.68rem!important;
-}
-body.app-presentation #lessonDeck .circuit-progress-wrap{
-  margin:0!important;
-  padding:5px 8px!important;
-}
-body.app-presentation #lessonDeck .circuit-progress-label{
-  margin-bottom:3px!important;
-  font-size:.54rem!important;
-}
-body.app-presentation #lessonDeck .circuit-progress .node{
-  width:25px!important;height:25px!important;font-size:.7rem!important
-}
-body.app-presentation #lessonDeck .circuit-progress .trace{height:4px!important}
-body.app-presentation #lessonDeck .slide-stage{
-  height:100%!important;
-  min-height:0!important;
-  max-height:100%!important;
-  overflow:hidden!important;
-  padding:clamp(12px,2vh,22px) clamp(18px,2.2vw,32px)!important;
-  display:block!important;
-}
-body.app-presentation #lessonDeck .slide-stage h2{
-  font-size:clamp(1.65rem,3.6vh,2.8rem)!important;
-  line-height:1!important;
-  margin:7px 0 8px!important;
-  padding-right:52px!important;
-}
-body.app-presentation #slideBody{
-  font-size:clamp(.78rem,1.58vh,1.02rem)!important;
-  line-height:1.25!important;
-  overflow:hidden!important;
-}
-body.app-presentation #slideBody p,
-body.app-presentation #slideBody li{
-  margin:3px 0!important;
-}
-body.app-presentation .note-grid{
-  grid-template-columns:1fr 1fr!important;
-  gap:6px!important;
-}
-body.app-presentation .note-card{
-  padding:7px 9px!important;
-  font-size:clamp(.72rem,1.38vh,.92rem)!important;
-  line-height:1.18!important;
-}
-body.app-presentation .copy-block{
-  margin-top:5px!important;
-  padding:7px 9px!important;
-}
-body.app-presentation .copy-block .copy-label{
-  margin-bottom:3px!important;
-  padding:2px 6px!important;
-  font-size:.54rem!important;
-}
-body.app-presentation .fun-tip{
-  margin-top:5px!important;
-  padding:6px 8px!important;
-  font-size:clamp(.66rem,1.2vh,.82rem)!important;
-}
-body.app-presentation .timer-area{
-  margin-top:6px!important;
-  padding:7px!important;
-}
-body.app-presentation .timer-display{
-  font-size:clamp(2.4rem,6.4vh,4.5rem)!important;
-  line-height:.9!important;
-}
-body.app-presentation .timer-controls{
-  margin-top:4px!important;
-  gap:4px!important;
-}
-body.app-presentation .timer-controls button{
-  padding:4px 7px!important;
-  font-size:.65rem!important;
-}
-body.app-presentation #lessonDeck .deck-nav{
-  margin:0!important;
-}
-body.app-presentation #lessonDeck .deck-nav button{
-  padding:6px 10px!important;
-  font-size:.72rem!important;
-}
-body.app-presentation .slide-sticker{
-  font-size:1.9rem!important;
-  right:12px!important;
-  top:10px!important;
-}
-body.app-presentation .stage-callout{
-  font-size:.5rem!important;
-  bottom:7px!important;
-  right:8px!important;
-  padding:4px 6px!important;
-}
-body.app-presentation #projectScreen.active{
-  display:block!important;
-  overflow:auto!important;
-  padding-top:36px!important;
-}
-@media(max-height:700px){
-  body.app-presentation main{padding:8px!important}
-  body.app-presentation #homeScreen .hero{padding:14px 18px!important}
-  body.app-presentation #homeScreen .hero h2{font-size:clamp(2rem,6vh,4rem)!important}
-  body.app-presentation #lessonMenu .day-grid{gap:5px!important}
-  body.app-presentation #lessonMenu .day-card{padding:7px 8px!important}
-  body.app-presentation #lessonDeck .slide-stage{padding:9px 14px!important}
-  body.app-presentation #slideBody{font-size:clamp(.7rem,1.42vh,.9rem)!important}
-}
-
-/* ---- V13 TRUE 16:9 PRESENTATION STAGE ---- */
-body.app-presentation{
-  margin:0!important;
-  width:100vw!important;
-  height:100vh!important;
-  overflow:hidden!important;
-  background:#000!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-}
-body.app-presentation .topbar{display:none!important}
-body.app-presentation #presentationExitBtn{
-  display:block!important;
-  top:10px!important;
-  right:10px!important;
-  z-index:99999!important;
-}
-body.app-presentation main{
-  position:relative!important;
-  width:min(100vw, calc(100vh * 16 / 9))!important;
-  height:min(100vh, calc(100vw * 9 / 16))!important;
-  aspect-ratio:16/9!important;
-  margin:0!important;
-  padding:14px!important;
-  overflow:hidden!important;
-  background:#03070b!important;
-  box-shadow:0 0 0 1px #0d3440, 0 0 50px rgba(0,217,255,.12)!important;
-}
 body.app-presentation .screen{
-  display:none!important;
+  display:none !important;
 }
+
 body.app-presentation .screen.active{
-  display:block!important;
-  width:100%!important;
-  height:100%!important;
-  max-width:none!important;
-  max-height:none!important;
-  overflow:hidden!important;
+  display:block !important;
+  width:100%;
+  min-height:calc(100vh - 36px);
+  height:auto !important;
+  overflow:visible !important;
 }
 
-/* HOME: fixed stage composition */
+/* Home stays by itself */
 body.app-presentation #homeScreen.active{
-  display:grid!important;
-  grid-template-rows:44% 10% 46%!important;
-  gap:8px!important;
+  display:block !important;
 }
+
 body.app-presentation #homeScreen .hero{
-  margin:0!important;
-  min-height:0!important;
-  height:100%!important;
-  padding:18px 24px!important;
-  overflow:hidden!important;
+  margin-bottom:18px;
 }
-body.app-presentation #homeScreen .hero h2{
-  font-size:clamp(2.2rem,5.4vw,5.4rem)!important;
-  line-height:.9!important;
-  margin:6px 0 8px!important;
-}
-body.app-presentation #homeScreen .hero p{
-  font-size:clamp(.75rem,1.1vw,1rem)!important;
-  margin:3px 0!important;
-}
-body.app-presentation #homeScreen .system-strip{
-  margin:0!important;
-  height:100%!important;
-}
-body.app-presentation #homeScreen .system-strip span{
-  display:flex!important;
-  align-items:center!important;
-  padding:6px 10px!important;
-  font-size:clamp(.56rem,.75vw,.7rem)!important;
-}
+
 body.app-presentation #homeScreen .mode-grid{
-  height:100%!important;
-  min-height:0!important;
-  gap:10px!important;
-}
-body.app-presentation #homeScreen .mode-card{
-  height:100%!important;
-  min-height:0!important;
-  padding:14px 18px!important;
-}
-body.app-presentation #homeScreen .mode-icon{font-size:2rem!important}
-body.app-presentation #homeScreen .mode-card strong{
-  font-size:clamp(1rem,1.6vw,1.45rem)!important;
-  margin:4px 0!important;
-}
-body.app-presentation #homeScreen .mode-card small{
-  font-size:clamp(.62rem,.85vw,.82rem)!important;
+  margin-top:18px;
 }
 
-/* MENU: 4 x 3 dashboard, no squeeze */
+/* Lesson menu stays by itself and may scroll */
 body.app-presentation #lessonMenu.active{
-  display:grid!important;
-  grid-template-rows:10% 90%!important;
-  gap:8px!important;
-}
-body.app-presentation #lessonMenu .screen-title{
-  margin:0!important;
-  padding:0 0 6px!important;
-  min-height:0!important;
-}
-body.app-presentation #lessonMenu .screen-title h2{
-  font-size:clamp(1.2rem,2vw,1.7rem)!important;
-}
-body.app-presentation #lessonMenu .day-grid{
-  display:grid!important;
-  width:100%!important;
-  height:100%!important;
-  min-height:0!important;
-  grid-template-columns:repeat(4,1fr)!important;
-  grid-template-rows:repeat(3,1fr)!important;
-  gap:8px!important;
-  overflow:hidden!important;
-}
-body.app-presentation #lessonMenu .day-card{
-  height:100%!important;
-  min-width:0!important;
-  min-height:0!important;
-  padding:9px 10px!important;
-  overflow:hidden!important;
-}
-body.app-presentation #lessonMenu .day-card .date{
-  font-size:clamp(.5rem,.7vw,.62rem)!important;
-}
-body.app-presentation #lessonMenu .day-card strong{
-  font-size:clamp(.78rem,1.15vw,1rem)!important;
-  line-height:1.02!important;
-  margin:3px 0!important;
-}
-body.app-presentation #lessonMenu .day-card small{
-  font-size:clamp(.5rem,.65vw,.65rem)!important;
-  line-height:1.05!important;
+  display:block !important;
 }
 
-/* LESSON: true slide layout */
+body.app-presentation #lessonMenu .day-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  overflow:visible !important;
+}
+
+body.app-presentation #lessonMenu .day-card{
+  min-height:150px;
+}
+
+/* Lesson deck stays by itself and may scroll */
 body.app-presentation #lessonDeck.active{
-  display:grid!important;
-  grid-template-rows:8% 8% 76% 8%!important;
-  gap:6px!important;
+  display:block !important;
 }
-body.app-presentation #lessonDeck .deck-top{
-  margin:0!important;
-  padding:5px 8px!important;
-  min-height:0!important;
-}
-body.app-presentation #lessonDeck .deck-title strong{
-  font-size:clamp(.82rem,1.15vw,1rem)!important;
-}
-body.app-presentation #lessonDeck .deck-title span{
-  font-size:clamp(.5rem,.7vw,.62rem)!important;
-}
-body.app-presentation #lessonDeck .deck-top button{
-  padding:4px 7px!important;
-  font-size:clamp(.52rem,.7vw,.65rem)!important;
-}
-body.app-presentation #lessonDeck .circuit-progress-wrap{
-  margin:0!important;
-  padding:4px 8px!important;
-}
-body.app-presentation #lessonDeck .circuit-progress-label{
-  font-size:.48rem!important;
-  margin-bottom:2px!important;
-}
-body.app-presentation #lessonDeck .circuit-progress .node{
-  width:22px!important;
-  height:22px!important;
-  font-size:.62rem!important;
-}
-body.app-presentation #lessonDeck .circuit-progress .trace{
-  height:3px!important;
-}
-body.app-presentation #lessonDeck .slide-stage{
-  height:100%!important;
-  min-height:0!important;
-  padding:14px 20px!important;
-  overflow:hidden!important;
-  border-width:3px!important;
-}
-body.app-presentation #lessonDeck .slide-stage h2{
-  font-size:clamp(1.45rem,2.4vw,2.3rem)!important;
-  line-height:1!important;
-  margin:6px 0 8px!important;
-  padding-right:48px!important;
-}
-body.app-presentation #slideBody{
-  font-size:clamp(.72rem,1.05vw,.95rem)!important;
-  line-height:1.2!important;
-  overflow:hidden!important;
-}
-body.app-presentation #slideBody p,
-body.app-presentation #slideBody li{
-  margin:2px 0!important;
-}
-body.app-presentation .note-grid{
-  grid-template-columns:1fr 1fr!important;
-  gap:6px!important;
-}
-body.app-presentation .note-card{
-  padding:7px 9px!important;
-  font-size:clamp(.66rem,.9vw,.82rem)!important;
-  line-height:1.15!important;
-}
-body.app-presentation .copy-block{
-  margin-top:5px!important;
-  padding:6px 8px!important;
-}
-body.app-presentation .copy-block .copy-label{
-  margin-bottom:2px!important;
-  padding:2px 5px!important;
-  font-size:.48rem!important;
-}
-body.app-presentation .fun-tip{
-  margin-top:5px!important;
-  padding:5px 7px!important;
-  font-size:clamp(.58rem,.8vw,.72rem)!important;
-}
-body.app-presentation .slide-sticker{
-  font-size:1.7rem!important;
-  right:10px!important;
-  top:8px!important;
-}
-body.app-presentation .stage-callout{
-  font-size:.44rem!important;
-  right:7px!important;
-  bottom:6px!important;
-  padding:3px 5px!important;
-}
-body.app-presentation .timer-area{
-  margin-top:5px!important;
-  padding:6px!important;
-}
-body.app-presentation .timer-display{
-  font-size:clamp(2rem,4.6vw,4rem)!important;
-  line-height:.9!important;
-}
-body.app-presentation .timer-controls{
-  margin-top:3px!important;
-  gap:4px!important;
-}
-body.app-presentation .timer-controls button{
-  padding:3px 6px!important;
-  font-size:.56rem!important;
-}
+
+body.app-presentation #lessonDeck .deck-top,
+body.app-presentation #lessonDeck .circuit-progress-wrap,
+body.app-presentation #lessonDeck .slide-stage,
 body.app-presentation #lessonDeck .deck-nav{
-  margin:0!important;
+  width:100%;
 }
-body.app-presentation #lessonDeck .deck-nav button{
-  padding:5px 9px!important;
-  font-size:clamp(.56rem,.75vw,.68rem)!important;
+
+body.app-presentation #lessonDeck .slide-stage{
+  min-height:560px;
+  height:auto !important;
+  overflow:visible !important;
+}
+
+body.app-presentation #slideBody{
+  overflow:visible !important;
+}
+
+body.app-presentation #projectScreen.active{
+  display:block !important;
+  overflow:visible !important;
+}
+
+@media(max-width:950px){
+  body.app-presentation #lessonMenu .day-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:650px){
+  body.app-presentation main{padding:12px}
+  body.app-presentation #lessonMenu .day-grid{
+    grid-template-columns:1fr;
+  }
 }
