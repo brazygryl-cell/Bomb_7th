@@ -292,3 +292,125 @@ body:after{
 .slide-stage.activity-live .signal-packet{animation-duration:2.3s}
 .slide-stage.notes-live .node-dot{animation-duration:.9s}
 .slide-stage.exit-live .ambient-circuit{filter:hue-rotate(70deg)}
+
+/* ---- V8 PRESENTATION / FULLSCREEN MODE ---- */
+body.presentation-mode{overflow:hidden}
+body.presentation-mode .topbar,
+body.presentation-mode #homeScreen,
+body.presentation-mode #lessonMenu,
+body.presentation-mode #projectScreen{display:none!important}
+body.presentation-mode main{
+  width:100vw!important;
+  height:100vh!important;
+  margin:0!important;
+  padding:0!important;
+  max-width:none!important;
+}
+body.presentation-mode #lessonDeck{
+  display:flex!important;
+  flex-direction:column;
+  width:100vw;
+  height:100vh;
+  padding:10px 14px 12px;
+  background:#03070b;
+  overflow:hidden;
+}
+body.presentation-mode #lessonDeck .deck-top{
+  flex:0 0 auto;
+  margin-bottom:8px;
+  padding:7px 10px;
+}
+body.presentation-mode #lessonDeck .circuit-progress-wrap{
+  flex:0 0 auto;
+  margin:0 0 8px;
+  padding:7px 12px;
+}
+body.presentation-mode #lessonDeck .slide-stage{
+  flex:1 1 auto;
+  min-height:0!important;
+  height:auto!important;
+  overflow:hidden!important;
+  padding:clamp(18px,2vh,30px) clamp(24px,2.8vw,42px)!important;
+  border-width:3px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+}
+body.presentation-mode #lessonDeck .slide-stage h2{
+  font-size:clamp(2rem,4.2vh,3.5rem)!important;
+  margin:10px 0 12px!important;
+  line-height:1!important;
+}
+body.presentation-mode #slideBody{
+  font-size:clamp(1rem,2.1vh,1.28rem)!important;
+  line-height:1.35!important;
+  overflow:hidden;
+}
+body.presentation-mode #slideBody p,
+body.presentation-mode #slideBody li{
+  margin-top:5px!important;
+  margin-bottom:5px!important;
+}
+body.presentation-mode .note-grid{
+  gap:10px!important;
+  grid-template-columns:1fr 1fr!important;
+}
+body.presentation-mode .note-card{
+  padding:10px 12px!important;
+  font-size:clamp(.95rem,1.85vh,1.15rem)!important;
+  line-height:1.25!important;
+}
+body.presentation-mode .copy-block{
+  margin-top:8px!important;
+  padding:10px 14px!important;
+}
+body.presentation-mode .fun-tip{
+  margin-top:8px!important;
+  padding:9px 12px!important;
+}
+body.presentation-mode .timer-area{
+  margin-top:10px!important;
+  padding:10px!important;
+}
+body.presentation-mode .timer-display{
+  font-size:clamp(3rem,8vh,6rem)!important;
+}
+body.presentation-mode .timer-controls{
+  margin-top:6px!important;
+  gap:6px!important;
+}
+body.presentation-mode .timer-controls button{
+  padding:7px 10px!important;
+  font-size:.9rem!important;
+}
+body.presentation-mode .deck-nav{
+  flex:0 0 auto;
+  margin-top:8px!important;
+}
+body.presentation-mode .deck-nav button{
+  padding:8px 14px!important;
+}
+body.presentation-mode .stage-callout{
+  bottom:10px!important;
+  right:14px!important;
+  font-size:.65rem!important;
+  padding:6px 9px!important;
+}
+body.presentation-mode .slide-sticker{
+  font-size:2.6rem!important;
+  right:18px!important;
+  top:15px!important;
+}
+body.presentation-mode .circuit-progress .node{
+  width:32px;height:32px;font-size:.9rem
+}
+body.presentation-mode .circuit-progress .trace{height:5px}
+body.presentation-mode .deck-title strong{font-size:1.05rem}
+body.presentation-mode .deck-title span{font-size:.72rem}
+body.presentation-mode .slide-count{font-size:.85rem}
+body.presentation-mode #fullscreenBtn{background:#0b1720;color:#7df4ff;border-color:#00d9ff}
+@media(max-height:750px){
+  body.presentation-mode #slideBody{font-size:clamp(.88rem,1.8vh,1.05rem)!important}
+  body.presentation-mode .note-card{font-size:clamp(.85rem,1.65vh,1rem)!important}
+  body.presentation-mode .slide-stage h2{font-size:clamp(1.75rem,3.6vh,2.8rem)!important}
+}
