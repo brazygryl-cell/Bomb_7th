@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Bomb Squad: Circuit Lab</title>
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=7" />
 </head>
 <body>
   <div id="flashLayer"></div>
@@ -12,7 +12,7 @@
   <header class="topbar">
     <div>
       <p class="eyebrow">MS. CJ • 7TH GRADE COMPUTER LITERACY</p>
-      <div class="title-row"><h1>BOMB SQUAD: CIRCUIT LAB</h1><span class="build-badge">V6 • STABLE LESSONS</span></div>
+      <div class="title-row"><h1>BOMB SQUAD: CIRCUIT LAB</h1><span class="build-badge">V7 • LIVE CIRCUIT</span></div>
     </div>
     <div class="top-actions"><button id="soundToggle" class="sound-toggle" aria-pressed="true">🔊 SOUNDS ON</button><div class="status-wrap"><span id="statusDot"></span><span id="systemStatus">SYSTEM SAFE</span></div></div>
   </header>
@@ -94,6 +94,11 @@
     <div class="electron e3"></div>
     <div class="stage-callout" id="stageCallout">POWER SOURCE ONLINE</div>
         <div class="slide-badge" id="slideBadge"></div><div class="slide-sticker" id="slideSticker">⚡</div>
+   <div class="ambient-circuit" aria-hidden="true">
+     <span class="bus bus-a"></span><span class="bus bus-b"></span><span class="bus bus-c"></span>
+     <span class="node-dot n1"></span><span class="node-dot n2"></span><span class="node-dot n3"></span><span class="node-dot n4"></span>
+     <span class="signal-packet p1"></span><span class="signal-packet p2"></span><span class="signal-packet p3"></span>
+   </div>
         <h2 id="slideTitle"></h2>
         <div id="slideBody"></div>
         <div id="slideTimerArea" class="timer-area hidden">
@@ -172,6 +177,6 @@
   <audio id="garyAudio" src="sounds/bomb_strapped.mp3" preload="metadata"></audio>
   <audio id="factoryAudio" src="sounds/bomb_factory.mp3" preload="auto"></audio>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>
