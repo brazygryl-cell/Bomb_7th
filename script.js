@@ -385,6 +385,29 @@ function startLessonTimer(){
   },100);
 }
 
+
+function enterPresentationMode(){
+  document.body.classList.add("presentation-mode");
+  const btn=$("#fullscreenBtn");
+  if(btn) btn.textContent="✕ EXIT FULL SCREEN";
+  const target=document.documentElement;
+  if(target.requestFullscreen){
+    target.requestFullscreen().catch(()=>{});
+  }
+}
+function exitPresentationMode(){
+  document.body.classList.remove("presentation-mode");
+  const btn=$("#fullscreenBtn");
+  if(btn) btn.textContent="⛶ FULL SCREEN";
+  if(document.fullscreenElement && document.exitFullscreen){
+    document.exitFullscreen().catch(()=>{});
+  }
+}
+function togglePresentationMode(){
+  if(document.body.classList.contains("presentation-mode")) exitPresentationMode();
+  else enterPresentationMode();
+}
+
 function init(){
   buildDayMenu();
 
@@ -420,6 +443,16 @@ function init(){
 
   const pulse=$("#circuitPulseBtn");
   if(pulse) pulse.addEventListener("click",pulseCircuit);
+
+  const fs=$("#fullscreenBtn");
+  if(fs) fs.addEventListener("click",togglePresentationMode);
+
+  document.addEventListener("fullscreenchange",()=>{
+    if(!document.fullscreenElement && document.body.classList.contains("presentation-mode")){
+      document.body.classList.remove("presentation-mode");
+      if(fs) fs.textContent="⛶ FULL SCREEN";
+    }
+  });
 
   $$("[data-time]").forEach(btn=>btn.addEventListener("click",()=>{
     lessonDefault=Number(btn.dataset.time)||180;
