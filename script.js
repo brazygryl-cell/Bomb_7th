@@ -389,7 +389,6 @@ function startLessonTimer(){
 
 function enterPresentationMode(){
   document.body.classList.add("app-presentation");
-  document.body.classList.add("presentation-mode");
   const g=$("#globalFullscreenBtn");
   const l=$("#fullscreenBtn");
   if(g) g.textContent="✕ EXIT PRESENTATION";
@@ -400,7 +399,6 @@ function enterPresentationMode(){
 }
 function exitPresentationMode(){
   document.body.classList.remove("app-presentation");
-  document.body.classList.remove("presentation-mode");
   const g=$("#globalFullscreenBtn");
   const l=$("#fullscreenBtn");
   if(g) g.textContent="⛶ PRESENTATION";
@@ -459,7 +457,6 @@ function init(){
   document.addEventListener("fullscreenchange",()=>{
     if(!document.fullscreenElement && document.body.classList.contains("app-presentation")){
       document.body.classList.remove("app-presentation");
-      document.body.classList.remove("presentation-mode");
       const g=$("#globalFullscreenBtn");
       const l=$("#fullscreenBtn");
       if(g) g.textContent="⛶ PRESENTATION";
