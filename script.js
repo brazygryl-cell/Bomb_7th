@@ -241,16 +241,25 @@ function tone(freq=440,dur=.1,type="square",vol=.08,delay=0){
 function alarmBurst(level="nav"){
   if(!soundsEnabled) return;
   if(level==="nav"){
-    tone(880,.08,"square",.09,0);
+    // Short security-alarm pulse: repeated harsh beeps, not melodic.
+    [0,.11,.22,.33].forEach((d,i)=>{
+      tone(i%2===0 ? 980 : 760,.085,"square",.12,d);
+    });
   }else if(level==="warning"){
-    tone(1040,.11,"square",.105,0);
+    [0,.10,.20,.30,.40].forEach((d,i)=>{
+      tone(i%2===0 ? 1120 : 820,.09,"square",.13,d);
+    });
   }else if(level==="fault"){
-    tone(190,.22,"sawtooth",.12,0);
+    [0,.13,.26].forEach((d)=>{
+      tone(170,.12,"sawtooth",.14,d);
+    });
   }else if(level==="success"){
-    tone(680,.12,"square",.09,0);
+    [0,.12].forEach((d,i)=>{
+      tone(i===0 ? 720 : 920,.10,"square",.10,d);
+    });
   }else if(level==="siren"){
-    const seq=[700,980,700,980,700,980];
-    seq.forEach((f,i)=>tone(f,.14,"square",.11,i*.13));
+    const seq=[680,1040,680,1040,680,1040,680,1040];
+    seq.forEach((f,i)=>tone(f,.15,"square",.14,i*.12));
   }
 }
 
