@@ -386,25 +386,31 @@ function startLessonTimer(){
 }
 
 
+
 function enterPresentationMode(){
+  document.body.classList.add("app-presentation");
   document.body.classList.add("presentation-mode");
-  const btn=$("#fullscreenBtn");
-  if(btn) btn.textContent="✕ EXIT FULL SCREEN";
-  const target=document.documentElement;
-  if(target.requestFullscreen){
-    target.requestFullscreen().catch(()=>{});
+  const g=$("#globalFullscreenBtn");
+  const l=$("#fullscreenBtn");
+  if(g) g.textContent="✕ EXIT PRESENTATION";
+  if(l) l.textContent="✕ EXIT FULL SCREEN";
+  if(document.documentElement.requestFullscreen){
+    document.documentElement.requestFullscreen().catch(()=>{});
   }
 }
 function exitPresentationMode(){
+  document.body.classList.remove("app-presentation");
   document.body.classList.remove("presentation-mode");
-  const btn=$("#fullscreenBtn");
-  if(btn) btn.textContent="⛶ FULL SCREEN";
+  const g=$("#globalFullscreenBtn");
+  const l=$("#fullscreenBtn");
+  if(g) g.textContent="⛶ PRESENTATION";
+  if(l) l.textContent="⛶ FULL SCREEN";
   if(document.fullscreenElement && document.exitFullscreen){
     document.exitFullscreen().catch(()=>{});
   }
 }
 function togglePresentationMode(){
-  if(document.body.classList.contains("presentation-mode")) exitPresentationMode();
+  if(document.body.classList.contains("app-presentation")) exitPresentationMode();
   else enterPresentationMode();
 }
 
@@ -448,9 +454,13 @@ function init(){
   if(fs) fs.addEventListener("click",togglePresentationMode);
 
   document.addEventListener("fullscreenchange",()=>{
-    if(!document.fullscreenElement && document.body.classList.contains("presentation-mode")){
+    if(!document.fullscreenElement && document.body.classList.contains("app-presentation")){
+      document.body.classList.remove("app-presentation");
       document.body.classList.remove("presentation-mode");
-      if(fs) fs.textContent="⛶ FULL SCREEN";
+      const g=$("#globalFullscreenBtn");
+      const l=$("#fullscreenBtn");
+      if(g) g.textContent="⛶ PRESENTATION";
+      if(l) l.textContent="⛶ FULL SCREEN";
     }
   });
 
