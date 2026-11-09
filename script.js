@@ -327,7 +327,8 @@ function renderSlide(){
 
   const stage=$("#slideStage");
   if(stage){
-    stage.className="slide-stage "+(themeByType[slide.type] || "");
+    const liveClass = slide.type==="Activity" ? " activity-live" : slide.type==="Notes" ? " notes-live" : slide.type==="Exit Ticket" ? " exit-live" : "";
+    stage.className="slide-stage "+(themeByType[slide.type] || "")+liveClass;
   }
   const timerArea=$("#slideTimerArea");
   if(timerArea) timerArea.classList.toggle("hidden",!slide.timer);
@@ -439,4 +440,17 @@ function init(){
   resetLessonTimer();
 }
 
-document.addEventListener("DOMContentLoaded",init);
+let ambientTimer=null;
+function startAmbientCircuit(){
+  clearInterval(ambientTimer);
+  ambientTimer=setInterval(()=>{
+    const deck=$("#lessonDeck");
+    if(!deck || !deck.classList.contains("active")) return;
+    const stage=$("#slideStage");
+    if(!stage) return;
+    stage.classList.add("pulse-circuit");
+    if(Math.random()>.55) sparkBurst(3);
+    setTimeout(()=>stage.classList.remove("pulse-circuit"),650);
+  },7000);
+}
+document.addEventListener("DOMContentLoaded",()=>{init();startAmbientCircuit();});
