@@ -518,3 +518,280 @@ body.app-presentation #globalFullscreenBtn{
   body.app-presentation #homeScreen .hero p{margin:.4rem 0}
   body.app-presentation #lessonMenu .day-card{padding:9px 10px!important}
 }
+
+/* ---- V11 PRESENTATION FORMAT FIX ---- */
+body.app-presentation{
+  overflow:hidden!important;
+  width:100vw;
+  height:100vh;
+}
+body.app-presentation .topbar{
+  display:flex!important;
+  height:72px!important;
+  min-height:72px!important;
+  padding:10px 18px!important;
+  margin:0!important;
+  flex:0 0 72px!important;
+}
+body.app-presentation .topbar h1{
+  font-size:clamp(1.1rem,2.2vw,1.8rem)!important;
+}
+body.app-presentation .eyebrow{
+  font-size:.62rem!important;
+  margin-bottom:2px!important;
+}
+body.app-presentation .build-badge{
+  font-size:.58rem!important;
+  padding:4px 7px!important;
+}
+body.app-presentation .top-actions{
+  gap:7px!important;
+}
+body.app-presentation .top-actions button,
+body.app-presentation .status-wrap{
+  padding:7px 10px!important;
+  font-size:.72rem!important;
+}
+body.app-presentation main{
+  position:relative;
+  width:100vw!important;
+  height:calc(100vh - 72px)!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:12px 16px 14px!important;
+  overflow:hidden!important;
+}
+body.app-presentation .screen{
+  display:none!important;
+}
+body.app-presentation .screen.active{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+
+/* HOME */
+body.app-presentation #homeScreen.active{
+  display:grid!important;
+  grid-template-rows:auto auto 1fr;
+  gap:10px!important;
+  align-content:stretch;
+}
+body.app-presentation #homeScreen .hero{
+  margin:0!important;
+  padding:18px 24px!important;
+  min-height:0!important;
+}
+body.app-presentation #homeScreen .hero h2{
+  font-size:clamp(2.2rem,5.5vh,4.6rem)!important;
+  line-height:.95!important;
+  margin:6px 0 8px!important;
+}
+body.app-presentation #homeScreen .hero p{
+  margin:4px 0!important;
+  font-size:clamp(.82rem,1.5vh,1rem)!important;
+}
+body.app-presentation .system-strip{
+  margin:0!important;
+}
+body.app-presentation .system-strip span{
+  padding:7px 10px!important;
+  font-size:.64rem!important;
+}
+body.app-presentation #homeScreen .mode-grid{
+  min-height:0!important;
+  height:100%!important;
+  gap:12px!important;
+}
+body.app-presentation #homeScreen .mode-card{
+  min-height:0!important;
+  height:100%!important;
+  padding:18px 20px!important;
+  justify-content:center!important;
+}
+body.app-presentation #homeScreen .mode-icon{
+  font-size:2.5rem!important;
+}
+body.app-presentation #homeScreen .mode-card strong{
+  font-size:clamp(1.25rem,2.3vw,1.8rem)!important;
+  margin:6px 0!important;
+}
+body.app-presentation #homeScreen .mode-card small{
+  font-size:clamp(.72rem,1.25vw,.9rem)!important;
+}
+
+/* LESSON MENU */
+body.app-presentation #lessonMenu.active{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+}
+body.app-presentation #lessonMenu .screen-title{
+  margin:0!important;
+  padding-bottom:8px!important;
+  flex:0 0 auto!important;
+}
+body.app-presentation #lessonMenu .screen-title h2{
+  font-size:1.6rem!important;
+}
+body.app-presentation #lessonMenu .day-grid{
+  display:grid!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+  height:100%!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-template-rows:repeat(3,minmax(0,1fr))!important;
+  gap:9px!important;
+  overflow:hidden!important;
+}
+body.app-presentation #lessonMenu .day-card{
+  min-height:0!important;
+  height:auto!important;
+  padding:11px 12px!important;
+  overflow:hidden!important;
+}
+body.app-presentation #lessonMenu .day-card .date{
+  font-size:.62rem!important;
+}
+body.app-presentation #lessonMenu .day-card strong{
+  font-size:clamp(.92rem,1.55vh,1.15rem)!important;
+  line-height:1.05!important;
+  margin:5px 0!important;
+}
+body.app-presentation #lessonMenu .day-card small{
+  display:block!important;
+  font-size:clamp(.62rem,1.05vh,.76rem)!important;
+  line-height:1.15!important;
+}
+
+/* LESSON DECK */
+body.app-presentation #lessonDeck.active{
+  display:grid!important;
+  grid-template-rows:auto auto minmax(0,1fr) auto!important;
+  gap:7px!important;
+}
+body.app-presentation #lessonDeck .deck-top{
+  margin:0!important;
+  padding:7px 10px!important;
+  min-height:0!important;
+}
+body.app-presentation #lessonDeck .deck-top button{
+  padding:6px 9px!important;
+  font-size:.72rem!important;
+}
+body.app-presentation #lessonDeck .circuit-progress-wrap{
+  margin:0!important;
+  padding:6px 10px!important;
+}
+body.app-presentation #lessonDeck .circuit-progress-label{
+  margin-bottom:4px!important;
+  font-size:.58rem!important;
+}
+body.app-presentation #lessonDeck .circuit-progress .node{
+  width:28px!important;height:28px!important;font-size:.78rem!important;
+}
+body.app-presentation #lessonDeck .circuit-progress .trace{
+  height:4px!important;
+}
+body.app-presentation #lessonDeck .slide-stage{
+  min-height:0!important;
+  height:100%!important;
+  overflow:hidden!important;
+  padding:18px 24px!important;
+  border-width:3px!important;
+}
+body.app-presentation #lessonDeck .slide-stage h2{
+  font-size:clamp(1.8rem,3.8vh,3rem)!important;
+  line-height:1!important;
+  margin:8px 0 10px!important;
+  padding-right:60px!important;
+}
+body.app-presentation #slideBody{
+  font-size:clamp(.9rem,1.72vh,1.13rem)!important;
+  line-height:1.3!important;
+  overflow:hidden!important;
+}
+body.app-presentation #slideBody p,
+body.app-presentation #slideBody li{
+  margin:4px 0!important;
+}
+body.app-presentation .note-grid{
+  grid-template-columns:1fr 1fr!important;
+  gap:8px!important;
+}
+body.app-presentation .note-card{
+  padding:9px 11px!important;
+  font-size:clamp(.84rem,1.5vh,1rem)!important;
+  line-height:1.22!important;
+}
+body.app-presentation .copy-block{
+  margin-top:7px!important;
+  padding:8px 11px!important;
+}
+body.app-presentation .copy-block .copy-label{
+  margin-bottom:4px!important;
+  padding:3px 7px!important;
+  font-size:.58rem!important;
+}
+body.app-presentation .copy-block ul{
+  margin:2px 0!important;
+}
+body.app-presentation .fun-tip{
+  margin-top:7px!important;
+  padding:7px 10px!important;
+  font-size:clamp(.75rem,1.35vh,.9rem)!important;
+}
+body.app-presentation .slide-sticker{
+  font-size:2.2rem!important;
+  right:14px!important;
+  top:11px!important;
+}
+body.app-presentation .stage-callout{
+  font-size:.56rem!important;
+  bottom:8px!important;
+  right:10px!important;
+  padding:5px 7px!important;
+}
+body.app-presentation .timer-area{
+  margin-top:8px!important;
+  padding:8px!important;
+}
+body.app-presentation .timer-display{
+  font-size:clamp(2.8rem,7vh,5rem)!important;
+  line-height:.95!important;
+}
+body.app-presentation .timer-controls{
+  margin-top:5px!important;
+  gap:5px!important;
+}
+body.app-presentation .timer-controls button{
+  padding:5px 8px!important;
+  font-size:.72rem!important;
+}
+body.app-presentation #lessonDeck .deck-nav{
+  margin:0!important;
+}
+body.app-presentation #lessonDeck .deck-nav button{
+  padding:7px 11px!important;
+  font-size:.78rem!important;
+}
+
+/* PROJECT remains viewable without affecting lesson formatting */
+body.app-presentation #projectScreen.active{
+  overflow:auto!important;
+}
+
+/* small laptop / projector heights */
+@media(max-height:720px){
+  body.app-presentation .topbar{height:60px!important;min-height:60px!important;flex-basis:60px!important}
+  body.app-presentation main{height:calc(100vh - 60px)!important;padding:8px 10px 10px!important}
+  body.app-presentation #homeScreen .hero{padding:12px 18px!important}
+  body.app-presentation #homeScreen .hero h2{font-size:clamp(1.9rem,5vh,3.6rem)!important}
+  body.app-presentation #lessonMenu .day-grid{gap:6px!important}
+  body.app-presentation #lessonMenu .day-card{padding:8px 9px!important}
+  body.app-presentation #lessonDeck .slide-stage{padding:12px 18px!important}
+  body.app-presentation #slideBody{font-size:clamp(.78rem,1.5vh,.94rem)!important}
+  body.app-presentation .note-card{font-size:clamp(.74rem,1.35vh,.88rem)!important}
+}
