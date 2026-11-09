@@ -241,28 +241,22 @@ function tone(freq=440,dur=.1,type="square",vol=.08,delay=0){
 function alarmBurst(level="nav"){
   if(!soundsEnabled) return;
   if(level==="nav"){
-    tone(820,.09,"square",.075,0);
-    tone(620,.10,"square",.07,.10);
+    tone(880,.08,"square",.09,0);
   }else if(level==="warning"){
-    tone(980,.11,"square",.095,0);
-    tone(740,.11,"square",.095,.13);
-    tone(980,.11,"square",.095,.26);
+    tone(1040,.11,"square",.105,0);
   }else if(level==="fault"){
-    tone(260,.16,"sawtooth",.11,0);
-    tone(180,.20,"sawtooth",.11,.15);
+    tone(190,.22,"sawtooth",.12,0);
   }else if(level==="success"){
-    tone(520,.09,"square",.075,0);
-    tone(700,.09,"square",.075,.1);
-    tone(900,.14,"square",.08,.2);
+    tone(680,.12,"square",.09,0);
   }else if(level==="siren"){
-    const seq=[760,900,760,900,760,900];
-    seq.forEach((f,i)=>tone(f,.13,"square",.105,i*.12));
+    const seq=[700,980,700,980,700,980];
+    seq.forEach((f,i)=>tone(f,.14,"square",.11,i*.13));
   }
 }
 
 function uiSound(kind){
   if(kind==="next" || kind==="click") alarmBurst("nav");
-  else if(kind==="zap") alarmBurst("warning");
+  else if(kind==="zap" || kind==="warning") alarmBurst("warning");
   else if(kind==="wrong") alarmBurst("fault");
   else if(kind==="success") alarmBurst("success");
   else if(kind==="alarm") alarmBurst("siren");
