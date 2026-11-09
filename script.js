@@ -453,6 +453,9 @@ function init(){
   const fs=$("#fullscreenBtn");
   if(fs) fs.addEventListener("click",togglePresentationMode);
 
+  const globalFs=$("#globalFullscreenBtn");
+  if(globalFs) globalFs.addEventListener("click",togglePresentationMode);
+
   document.addEventListener("fullscreenchange",()=>{
     if(!document.fullscreenElement && document.body.classList.contains("app-presentation")){
       document.body.classList.remove("app-presentation");
