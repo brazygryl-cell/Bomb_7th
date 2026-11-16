@@ -519,6 +519,20 @@ function init(){
   });
 
   resetLessonTimer();
+  document.addEventListener("keydown",(e)=>{
+    const deck=$("#lessonDeck");
+    if(!deck || !deck.classList.contains("active")) return;
+    if(["INPUT","TEXTAREA","SELECT"].includes(document.activeElement?.tagName)) return;
+
+    if(e.key==="ArrowRight" || e.key==="ArrowDown"){
+      e.preventDefault();
+      $("#nextSlide")?.click();
+    }else if(e.key==="ArrowLeft" || e.key==="ArrowUp"){
+      e.preventDefault();
+      $("#prevSlide")?.click();
+    }
+  });
+
 }
 
 let ambientTimer=null;
